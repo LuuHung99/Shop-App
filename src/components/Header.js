@@ -1,46 +1,49 @@
 import React from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ShoppingCartOutlined, UserAddOutlined } from "@ant-design/icons";
 import { Row, Col } from "antd";
+import "./css/style.css";
 
 function HeaderPage(props) {
   return (
-    <Router>
-      <Row
-        style={{
-          display: "flex",
-          backgroundColor: "#fff",
-          justifyContent: "space-between",
-          padding: "0 80px"
-        }}
-      >
+    <>
+      <Row className="container_header">
         <Col>
           <img
             src="https://react-course-comfy-sloth-store.netlify.app/static/media/logo.221f6b13.svg"
             alt="logo"
-            style={{ width: "80%", cursor: "pointer"}}
+            style={{ width: "80%", cursor: "pointer", paddingTop: "10px" }}
           />
         </Col>
 
-        <Col span={8}>
-          <ul style={{letterSpacing: "2px", display: "flex", justifyContent: "space-around", fontSize: 18, marginTop: 20, }}>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-            <Link to="/products">Products</Link>
+        <Col span={8} className="header_menu">
+          <ul>
+            <Link to="/" style={{color: "#000"}}>Home</Link>
+            <Link to="/about" style={{color: "#000"}}>About</Link>
+            <Link to="/products" style={{color: "#000"}}>Products</Link>
           </ul>
         </Col>
-        <Col style={{ display: "flex" , fontSize: 18, marginTop: 20}}>
-          <div style={{marginRight: "15px"}}>
-            <Link to="cart">Cart</Link>
-            <ShoppingCartOutlined style={{ color: "black" }} />
+        <Col style={{ display: "flex", fontSize: 24, marginTop: 20, cursor: "pointer" }}>
+          <div
+            style={{
+              marginRight: "25px",
+              position: "relative",
+              
+              marginLeft: '5px'
+            }}
+          >
+            <Link to="cart" style={{color: "#000"}}>Cart</Link>
+            <ShoppingCartOutlined />
+            <div className="header_cart">0</div>
           </div>
-          <div>
-            <Link to="login">Login</Link>
-            <UserAddOutlined style={{ color: "#000" }} />
+
+          <div style={{ cursor: "pointer", marginLeft: '5px' }}>
+            <Link to="login" style={{color: "#000"}}>Login</Link>
+            <UserAddOutlined  />
           </div>
         </Col>
       </Row>
-    </Router>
+    </>
   );
 }
 

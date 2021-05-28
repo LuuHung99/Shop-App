@@ -5,7 +5,11 @@ import {
   Route,
 } from "react-router-dom";
 
-const Home = lazy(() => import("./home/home"));
+const Home = lazy(() => import("./home/index"));
+const About = lazy(() => import("./about/index"));
+const Products = lazy(() => import("./products/index"));
+const Cart = lazy(() => import("./cart/index"));
+const Login = lazy(() => import("./login/index"));
 
 
 function PageComponents(props) {
@@ -21,6 +25,18 @@ function PageComponents(props) {
         <Switch>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/products">
+            <Products />
+          </Route>
+          <Route path="/cart">
+            <Cart />
+          </Route>
+          <Route path="/login">
+            <Login />
           </Route>
         </Switch>
       </Suspense>
