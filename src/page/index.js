@@ -1,27 +1,25 @@
-import React, { lazy, Suspense } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
-
-const Home = lazy(() => import("./home/index"));
-const About = lazy(() => import("./about/index"));
-const Products = lazy(() => import("./products/index"));
-const Cart = lazy(() => import("./cart/index"));
-const Login = lazy(() => import("./login/index"));
+import Home from "./home/index";
+import About from "./about/index";
+import Products from "./products/index";
+import Cart from "./cart/index";
+import Login from "./login/index";
+// const Home = lazy(() => import("./home/index"));
+// const About = lazy(() => import("./about/index"));
+// const Products = lazy(() => import("./products/index"));
+// const Cart = lazy(() => import("./cart/index"));
+// const Login = lazy(() => import("./login/index"));
 
 
 function PageComponents(props) {
   return (
     <Router>
-      <Suspense
-        fallback={
-          <h1 style={{ textAlign: "center", marginTop: "40px" }}>
-            Loading ...
-          </h1>
-        }
-      >
+      
         <Switch>
           <Route exact path="/">
             <Home />
@@ -39,7 +37,7 @@ function PageComponents(props) {
             <Login />
           </Route>
         </Switch>
-      </Suspense>
+      
     </Router>
   );
 }

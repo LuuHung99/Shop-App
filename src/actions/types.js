@@ -1,0 +1,8 @@
+//Action of users
+export const GET_DATA_SHOP = 'GET_DATA_SHOP';
+
+//Action of saga
+export const START_LOADING_DATA_SHOP = 'START_LOADING_DATA_SHOP';
+export const STOP_LOADING_DATA_SHOP = 'STOP_LOADING_DATA_SHOP';
+export const GET_DATA_SHOP_SUCCESS = 'GET_DATA_SHOP_SUCCESS';
+export const GET_DATA_SHOP_FAIL = 'GET_DATA_SHOP_FAIL';

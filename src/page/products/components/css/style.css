@@ -1,0 +1,265 @@
+/*page row */
+
+.container_products {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.product_row .product_img {
+  height: 190px;
+  width: 320px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.product_row .product_info {
+  display: flex;
+  justify-content: space-between;
+  align-content: space-between;
+  width: 320px;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+/*Loading*/
+.loading {
+  width: 6rem;
+  height: 6rem;
+  margin: 0 auto;
+  margin-top: 10rem;
+  border-radius: 50%;
+  border: 4px solid #ccc;
+  border-top-color: var(--clr-primary-5);
+  animation: spinner 0.6s linear infinite;
+}
+
+/*page column */
+
+.product_column {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.product_column .product_column_img {
+  width: 60%;
+  height: 200px;
+  border-radius: 5px;
+  object-fit: cover;
+ 
+}
+
+.product_column .product_info {
+  margin-left: 40px;
+}
+
+.product_column .product_info h1 {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.product_column .product_info span {
+  font-weight: bold;
+  color: #b99179;
+  font-size: 18px;
+}
+
+.product_column .product_info p {
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+.product_column .product_info button {
+  width: auto;
+  height: auto;
+  text-transform: uppercase;
+  font-size: 12px;
+  padding: 5px 10px;
+  letter-spacing: 1.5px;
+  color: #fff;
+  background-color: #b99179;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.product_column .product_info button:hover {
+  color: #000;
+}
+
+
+
+/*Head*/
+ .head_container {
+    display:flex;
+    padding-left: 300px;
+    padding-right: 125px;
+    padding-top: 50px;
+ 
+}
+
+.head_container p {
+  font-size: 16px;
+  margin-left: 40px;
+}
+
+.head_container hr {
+  height: 2px;
+  width: 57%;
+  border: none;
+  background-color: #e3e3e3;
+}
+
+ .head_options {
+  border: none;
+  height: 65%;
+  width: auto;
+  font-size: 16px;
+ 
+}
+
+.head_icon1 {
+  font-size: 24px;
+  width: 40px;
+  cursor: pointer;
+}
+
+.head_icon1:hover {
+  color: #ab7a5f;
+}
+
+.head_icon2 {
+  font-size: 24px;
+
+  cursor: pointer;
+}
+
+.head_icon2:hover {
+  color: #ab7a5f;
+}
+
+/*Sidebar*/
+.site-layout-background {
+    width: auto;
+    margin-bottom: 50px;
+    margin: 50px 125px;
+    margin-top: -50px;
+    
+}
+
+.site-layout-background .sidebar_search {
+    border: none;
+    border-radius: 5px;
+    background-color: #f1f5f8;
+    width: 90%;
+    height: auto;
+    padding: 7px 10px;
+    color: #000;
+}
+
+.sidebar_category {
+    color: #617d98;
+    line-height: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+   
+}
+
+.sidebar_category button {
+    border: none;
+    margin-bottom: 5px;
+    background: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.sidebar_category button::after {
+    position: absolute;
+	content: "";
+	width: 0%;
+	height: 3px;
+	background-color: #617d98;
+	left: 50%;
+	bottom: -2px;
+	transition: all 0.4s ease-in-out;
+}
+
+.sidebar_category:hover button:nth-child(1)::after {
+    width: 80%;
+    left: 3px;
+}
+ 
+
+.sidebar_company {
+    border: none;
+    background-color: #f1f5f8;
+    width: auto;
+    height: auto;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.site-layout-background h3 {
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.sidebar_color {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 150px;
+    cursor: pointer;
+}
+
+.sidebar_color .color1 {
+    width: 15px;
+    height:15px;
+    border-radius: 15px;
+    background-color: red;
+}
+
+.sidebar_color .color2 {
+    width: 15px;
+    height:15px;
+    border-radius: 15px;
+    background-color: green;
+}
+.sidebar_color .color3 {
+    width: 15px;
+    height:15px;
+    border-radius: 15px;
+    background-color: yellow;
+}
+.sidebar_color .color4 {
+    width: 15px;
+    height:15px;
+    border-radius: 15px;
+    background-color: blue;
+}
+.sidebar_color .color5 {
+    width: 15px;
+    height:15px;
+    border-radius: 15px;
+    background-color: gray;
+}
+
+.sidebar_clear {
+    margin-top: 10px;
+    border: none;
+    color: #fff;
+    background-color: #bb2525;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+    padding: 5px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    letter-spacing: 1.2px;
+}
+.sidebar_clear:hover {
+    color: gray;
+}
+
+ 

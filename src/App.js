@@ -1,14 +1,18 @@
-import React from 'react';
-import PageComponent from './page/index';
-import 'antd/dist/antd.css';
- 
+import React, {useEffect} from "react";
+import PageComponent from "./page/index";
+import "antd/dist/antd.css";
+import { useDispatch } from "react-redux";
 
-function App() {
+function AppShop() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch({ type: "GET_DATA_SHOP" });
+  }, [dispatch]);
   return (
-    <div>
+    <>
       <PageComponent />
-    </div>
+    </>
   );
 }
 
-export default App;
+export default AppShop;

@@ -9,7 +9,7 @@ function AboutPage(props) {
             <Directional />
             <Row style={{padding: '80px 125px', backgroundColor: '#fff'}}>
                 <Col span={12}>
-                    <img src="/images/hero-2.jpeg" style={{width: '90%', height: '500px'}} />
+                    <img src="/images/hero-2.jpeg" style={{width: '90%', height: '500px'}} alt="" />
                 </Col>
                 <Col span={12} >
                     <h1 style={{fontSize: '40px', fontWeight: 'bold'}}>

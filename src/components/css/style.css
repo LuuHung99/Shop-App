@@ -16,7 +16,28 @@
   justify-content: space-around;
   font-size: 18px;
   margin-top: 28px;
+  list-style-type: none;
 }
+
+/* .header_menu ul li {
+  position: relative;
+}
+
+.header_menu ul li::after {
+  position: absolute;
+  content: "";
+  width: 0%;
+  height: 4px;
+  background-color: #ab7a5f;
+  bottom: -10px;
+  left: 50%;
+  transition: all 0.4s ease-in-out;
+}
+
+.header_menu:hover .header_menu ul li::after {
+  width: 100%;
+  left: 50%;
+} */
 
 .header_cart {
   position: absolute;
@@ -34,15 +55,14 @@
 }
 
 .directional {
-    width: auto;
-    height: auto;
-    padding: 40px 125px;
-    background-color: #eaded7;
+  width: auto;
+  height: auto;
+  padding: 40px 125px;
+  background-color: #eaded7;
 }
 
 .directional h1 {
-    font-size: 32px;
-    font-weight: bold;
-    letter-spacing: 2.5px;
-
+  font-size: 32px;
+  font-weight: bold;
+  letter-spacing: 2.5px;
 }

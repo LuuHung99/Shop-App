@@ -17,10 +17,13 @@ function HeaderPage(props) {
         </Col>
 
         <Col span={8} className="header_menu">
-          <ul>
-            <Link to="/" style={{color: "#000"}}>Home</Link>
-            <Link to="/about" style={{color: "#000"}}>About</Link>
-            <Link to="/products" style={{color: "#000"}}>Products</Link>
+          <ul >
+            <li><Link to="/" style={{color: "#000"}}>Home</Link></li>
+            <li><Link to="/about" style={{color: "#000"}}>About</Link></li>
+            <li><Link to="/products" style={{color: "#000"}}>Products</Link></li>
+            
+            
+            
           </ul>
         </Col>
         <Col style={{ display: "flex", fontSize: 24, marginTop: 20, cursor: "pointer" }}>

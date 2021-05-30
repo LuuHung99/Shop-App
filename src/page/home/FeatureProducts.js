@@ -1,8 +1,25 @@
-import React from "react";
-import { Row, Col } from "antd";
-import {Link} from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import "./css/style.css";
+import { Row, Col } from "antd";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
 function FeatureProducts(props) {
+  const dispatch = useDispatch();
+  const dataShop = useSelector((state) => state.currentShop.products);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    dispatch({ type: "GET_DATA_SHOP" });
+  }, []);
+
+  useEffect(() => {
+    if (dataShop.length > 0) {
+      const dataHome = dataShop.slice(9, 12);
+      setData(dataHome);
+    }
+  }, [dataShop]);
+
   return (
     <Row className="container_products">
       <Col span={24} className="feature_products">
@@ -10,44 +27,30 @@ function FeatureProducts(props) {
         <hr />
       </Col>
       <Row className="feature_products_detail">
-        <Col span={8}>
-          <img
-            src="/images/pd_home1.jpg"
-            alt=""
-            className="feature_products_image"
-          />
-          <div className="feature_products_info">
-            <p>Entertainment Center</p>
-            <div className="feature_products_price">$599.99</div>
-          </div>
-        </Col>
-        <Col span={8}>
-          <img
-            src="/images/pd_home2.jpg"
-            alt=""
-            className="feature_products_image"
-          />
-          <div className="feature_products_info">
-            <p>Entertainment Center</p>
-            <div className="feature_products_price">$599.99</div>
-          </div>
-        </Col>
-        <Col span={8}>
-          <img
-            src="/images/pd_home3.jpg"
-            alt=""
-            className="feature_products_image"
-          />
-          <div className="feature_products_info">
-            <p>Entertainment Center</p>
-            <div className="feature_products_price">$599.99</div>
-          </div>
-        </Col>
+        {data.length > 0
+          ? data.map((item, index) => (
+              <Col span={8} key={index}>
+                <img
+                  style={{ height: 270, objectFit: 'cover' }}
+                  src={item.image}
+                  alt=""
+                  className="feature_products_image"
+                />
+                <div className="feature_products_info">
+                  <p style={{ textTransform: "capitalize" }}>{item.name}</p>
+                  <div className="feature_products_price">
+                    $ {item.price.toFixed(2) / 100}
+                  </div>
+                </div>
+              </Col>
+            ))
+          : null}
       </Row>
       <Row style={{ margin: "0 auto" }}>
         <Col span={24}>
-            <Link className="button">all products</Link>
-         
+          <Link className="button" to="products">
+            all products
+          </Link>
         </Col>
       </Row>
     </Row>
