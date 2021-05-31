@@ -173,22 +173,6 @@
     cursor: pointer;
     position: relative;
 }
-
-.sidebar_category button::after {
-    position: absolute;
-	content: "";
-	width: 0%;
-	height: 3px;
-	background-color: #617d98;
-	left: 50%;
-	bottom: -2px;
-	transition: all 0.4s ease-in-out;
-}
-
-.sidebar_category:hover button:nth-child(1)::after {
-    width: 80%;
-    left: 3px;
-}
  
 
 .sidebar_company {
@@ -211,9 +195,17 @@
     align-items: center;
     max-width: 150px;
     cursor: pointer;
+    
 }
 
-.sidebar_color .color1 {
+.sidebar_color_shop {
+  width: 15px;
+  height:15px;
+  border-radius: 15px;
+ 
+}
+
+/* .sidebar_color .color1 {
     width: 15px;
     height:15px;
     border-radius: 15px;
@@ -243,7 +235,7 @@
     height:15px;
     border-radius: 15px;
     background-color: gray;
-}
+} */
 
 .sidebar_clear {
     margin-top: 10px;

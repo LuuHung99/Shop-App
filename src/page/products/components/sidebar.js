@@ -2,18 +2,20 @@ import React, { useState, useEffect } from "react";
 import { Input, Slider, InputNumber, Row, Col, Layout } from "antd";
 import "./css/style.css";
 import { useSelector } from "react-redux";
-import ProductShopApp from '../product/product';
+import ProductShopApp from "../product/product";
 import { GroupOutlined, UnorderedListOutlined } from "@ant-design/icons";
 
 function SidebarProduct(props) {
-  const [inputValue, setInputValue] = useState(0);
+  const [searchProcuct, setSearchProduct] = useState("");
+  const [inputValue, setInputValue] = useState(100);
   const dataShop = useSelector((state) => state.currentShop.products);
   const [category, setCategory] = useState("all");
   const [company, setCompany] = useState("all");
-  const [data, setData] = useState();
-  
-
+  const [color, setColor] = useState("#BF00FF");
+  const [data, setData] = useState("");
   const [showProduct, setShowProduct] = useState(false);
+  const [shipping, setShipping] = useState(true);
+  const [longData, setLongData] = useState();
 
   let cate = [
     { id: 0, category: "all" },
@@ -29,120 +31,179 @@ function SidebarProduct(props) {
     { id: 1, company: "all" },
     { id: 2, company: "marcos" },
     { id: 3, company: "liddy" },
-    { id: 4, company: "chisd" },
-    { id: 5, company: "alics" },
+    { id: 4, company: "ikea" },
+    { id: 5, company: "caressa" },
   ];
 
-  
-  setTimeout(() => {
-    let result =
-      dataShop.length > 0
-        ? dataShop.filter(
-            (x) =>
-              (category != "all" ? x.category === category : x) &&
-              (company != "all" ? x.company === company : x) 
-              // &&
-              // (inputValue > 0 ? x.price <= inputValue : x)
-          )
-        : dataShop;
-    setData(result);
-  }, 300);
+  let colorss = [
+    {
+      id: 0,
+      color: "#BF00FF",
+    },
+    {
+      id: 1,
+      color: "#ff0000",
+    },
+    {
+      id: 2,
+      color: "#00ff00",
+    },
+    {
+      id: 3,
+      color: "#0000ff",
+    },
+    {
+      id: 4,
+      color: "#000",
+    },
+    {
+      id: 5,
+      color: "#ffb900",
+    },
+  ];
 
+  useEffect(() => {
+    const getData = setTimeout(() => {
+    let result =
+    dataShop.length > 0
+      ? dataShop.filter(
+          (x) =>
+            (category !== "all" ? x.category === category : x) &&
+            (company !== "all" ? x.company === company : x) &&
+            (inputValue > 0 ? x.price <= inputValue * 3100 : null) &&
+            (color !== "#BF00FF" ? x.colors.map((item) => item) == color : x)
+          //  &&
+          // (shipping !== "All" ? x.shipping == true : x)
+        )
+      : dataShop;
+      setData(result);
+      setLongData(result);
+  }, 200);
+    return () => clearTimeout(getData);
+}, [data]);
+ 
+  
   const onChange = (val) => {
     setInputValue(val);
   };
 
   const handleProductRow = () => {
     setShowProduct(false);
-  }
+  };
 
   const handleProductColumn = () => {
     setShowProduct(true);
-  }
+  };
+
+  const clearFilter = () => {
+    setData(data);
+  };
 
   return (
     <Layout style={{ backgroundColor: "#fff" }}>
-      <Row >
-        <Col span={24} >
-          <div className="head_container">
-          <GroupOutlined onClick={handleProductRow} className="head_icon1" />
-          <UnorderedListOutlined onClick={handleProductColumn} className="head_icon2" />
-          <p>{dataShop.length} Products Found</p>
-          <hr />
-          <span style={{ fontSize: "16px" }}>Sort by</span>
-          <select className="head_options">
-            <option value="value">Price (Lowest)</option>
-            <option value="value">Price (Highest)</option>
-            <option value="value">Name (A - Z)</option>
-            <option value="vaule">Name (Z - A)</option>
-          </select>
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <div className="site-layout-background">
-            <Input placeholder="Search" className="sidebar_search" />
-            <h3>Category</h3>
-            <div className="sidebar_category">
-              {cate.map((item, index) => {
-                return (
-                  <button
-                    style={{ textTransform: "capitalize" }}
-                    onClick={() => setCategory(item.category)}
-                    key={index}
-                  >
-                    {item.category}
-                  </button>
-                );
-              })}
+      <div>
+        <Row>
+          <Col span={24}>
+            <div className="head_container">
+              <GroupOutlined
+                onClick={handleProductRow}
+                className="head_icon1"
+              />
+              <UnorderedListOutlined
+                onClick={handleProductColumn}
+                className="head_icon2"
+              />
+              <p>{longData && longData.length} Products Found</p>
+              <hr />
+              <span style={{ fontSize: "16px" }}>Sort by</span>
+              <select className="head_options">
+                <option value="value">Price (Lowest)</option>
+                <option value="value">Price (Highest)</option>
+                <option value="value">Name (A - Z)</option>
+                <option value="vaule">Name (Z - A)</option>
+              </select>
             </div>
-            <h3>Company</h3>
-            <select
-              className="sidebar_company"
-              onChange={(e) => setCompany(e.target.value)}
-            >
-              {com.map((item, index) => (
-                <option value={item.company} key={index}>
-                  {item.company}
-                </option>
-              ))}
-            </select>
-            <h3>Colors</h3>
-            <div className="sidebar_color">
-              <div>All</div>
-              <div className="color1"></div>
-              <div className="color2"></div>
-              <div className="color3"></div>
-              <div className="color4"></div>
-              <div className="color5"></div>
-            </div>
-            <h3>Price</h3>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <div className="site-layout-background">
+              <Input
+                placeholder="Search"
+                className="sidebar_search"
+                value={searchProcuct}
+                onChange={(e) => setSearchProduct(e.target.value)}
+              />
+              <h3>Category</h3>
+              <div className="sidebar_category">
+                {cate.map((item, index) => {
+                  return (
+                    <button
+                      style={{ textTransform: "capitalize" }}
+                      onClick={() => setCategory(item.category)}
+                      key={index}
+                    >
+                      {item.category}
+                    </button>
+                  );
+                })}
+              </div>
+              <h3>Company</h3>
+              <select
+                className="sidebar_company"
+                onChange={(e) => setCompany(e.target.value)}
+              >
+                {com.map((item, index) => (
+                  <option value={item.company} key={index}>
+                    {item.company}
+                  </option>
+                ))}
+              </select>
+              <h3>Colors</h3>
+              <div className="sidebar_color">
+                {colorss.map((item, index) => {
+                  return (
+                    <div
+                      className="sidebar_color_shop"
+                      style={{ backgroundColor: item.color }}
+                      key={index}
+                      onClick={() => setColor(item.color)}
+                    >
+                    </div>
+                  );
+                })}
+              </div>
+              <h3>Price</h3>
+              <InputNumber
+                style={{ margin: "0 16px", border: "none" }}
+                value={inputValue}
+                onChange={onChange}
+              />
+              <Slider
+                onChange={onChange}
+                value={typeof inputValue === "number" ? inputValue : 0}
+                style={{ width: "70%", height: "10px" }}
+              />
 
-            <InputNumber
-              style={{ margin: "0 16px" }}
-              value={inputValue}
-              onChange={onChange}
-              style={{ border: "none" }}
-            />
-            <Slider
-              onChange={onChange}
-              value={typeof inputValue === "number" ? inputValue : 0}
-              style={{ width: "70%", height: "10px" }}
-            />
-
-            <div style={{ display: "flex", marginTop: "30px" }}>
-              <p>Free Shipping</p>
-              <input type="checkbox" style={{ margin: "7px 10px" }}></input>
+              <div style={{ display: "flex", marginTop: "30px" }}>
+                <p>Free Shipping</p>
+                <input type="checkbox" style={{ margin: "7px 10px" }} />
+              </div>
+              <button className="sidebar_clear" onClick={clearFilter}>
+                Clear Filters
+              </button>
             </div>
-            <button className="sidebar_clear">Clear Filters</button>
-          </div>
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+      </div>
       <Row>
-      <Col span={24}>
-        <ProductShopApp show={showProduct}  data={dataShop} />
-      </Col>
+        <Col span={24}>
+          <ProductShopApp
+            show={showProduct}
+            data={data}
+            searchProcuct={searchProcuct}
+          />
+        </Col>
       </Row>
     </Layout>
   );

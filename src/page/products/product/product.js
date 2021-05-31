@@ -1,31 +1,24 @@
 import React from "react";
 import { Col, Row } from "antd";
 import "./css/style.css";
-import {SearchOutlined} from '@ant-design/icons';
-import {Link} from 'react-router-dom';
+import { SearchOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 function ProductShopApp(props) {
-  const { show, data } = props;
-  console.log(show, data);
-
-  //   let state1;
-
-  //   if (dataShop.length > 0) state1 = dataShop.filter((x) => x.category === "");
-
-  //   console.log(state1);
-
-  // const handleProductRow = () => {
-  //   setShowProduct(true);
-  // };
-
-  // const handleProductColumn = () => {
-  //   setShowProduct(false);
-  // };
-
+  const { show, data, searchProcuct } = props;
+ 
   return (
     <Row className="containers_products">
-      {data.length > 0
-        ? data.map((item, index) => {
+      {data.length > 0 ? (
+        data
+          .filter((val) => {
+            if (searchProcuct === "") {
+              return val;
+            } else if (val.name.toLowerCase().includes(searchProcuct)) {
+              return val;
+            }
+          })
+          .map((item, index) => {
             return (
               <Col
                 span={show ? 24 : 8}
@@ -38,10 +31,14 @@ function ProductShopApp(props) {
                     alt=""
                     className={show ? "product_column_img" : "product_img"}
                   />
-                  <div className="feature_products_image_hover_show">
-                    <Link to="/">
-                      <SearchOutlined className="feature_products_icon_show" />
-                    </Link>
+                  <div
+                    className={show ? "" : "feature_products_image_hover_show"}
+                  >
+                    {!show ? (
+                      <Link to="/">
+                        <SearchOutlined className="feature_products_icon_show" />
+                      </Link>
+                    ) : null}
                   </div>
                 </div>
 
@@ -51,7 +48,7 @@ function ProductShopApp(props) {
                   ) : (
                     <p style={{ textTransform: "capitalize" }}>{item.name}</p>
                   )}
-                  <span>$ {item.price.toFixed(2) / 100}</span>
+                  <span style={{color: '#b99179'}}>$ {item.price.toFixed(2) / 100}</span>
                   <p style={show ? {} : { display: "none" }}>
                     {item.description.slice(0, 160)}...
                   </p>
@@ -62,7 +59,11 @@ function ProductShopApp(props) {
               </Col>
             );
           })
-        : null}
+      ) : (
+        <h2 style={{fontWeight: 'bold'}}>
+        Sorry, no products matched your search.
+      </h2>
+      )}
     </Row>
   );
 }
