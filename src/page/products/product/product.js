@@ -1,9 +1,11 @@
 import React from "react";
 import { Col, Row } from "antd";
 import "./css/style.css";
+import {SearchOutlined} from '@ant-design/icons';
+import {Link} from 'react-router-dom';
 
 function ProductShopApp(props) {
-  const {show, data} = props;
+  const { show, data } = props;
   console.log(show, data);
 
   //   let state1;
@@ -30,13 +32,19 @@ function ProductShopApp(props) {
                 className={show ? "product_column" : "product_row"}
                 key={index}
               >
-                <img
-                  src={item.image}
-                  alt=""
-                  className={
-                    show ? "product_column_img" : "product_img"
-                  }
-                />
+                <div className="product_show_img">
+                  <img
+                    src={item.image}
+                    alt=""
+                    className={show ? "product_column_img" : "product_img"}
+                  />
+                  <div className="feature_products_image_hover_show">
+                    <Link to="/">
+                      <SearchOutlined className="feature_products_icon_show" />
+                    </Link>
+                  </div>
+                </div>
+
                 <div className="product_info">
                   {show ? (
                     <h1 style={{ textTransform: "capitalize" }}>{item.name}</h1>

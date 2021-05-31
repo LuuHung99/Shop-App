@@ -3,6 +3,7 @@ import "./css/style.css";
 import { Row, Col } from "antd";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import {SearchOutlined} from '@ant-design/icons';
 
 function FeatureProducts(props) {
   const dispatch = useDispatch();
@@ -30,12 +31,15 @@ function FeatureProducts(props) {
         {data.length > 0
           ? data.map((item, index) => (
               <Col span={8} key={index}>
-                <img
-                  style={{ height: 270, objectFit: 'cover' }}
-                  src={item.image}
-                  alt=""
-                  className="feature_products_image"
-                />
+                <div className="feature_products_show">
+                  <img
+                    style={{ height: 270, objectFit: "cover" }}
+                    src={item.image}
+                    alt=""
+                    className="feature_products_image"
+                  />
+                  <div className="feature_products_image_hover"><Link to="products"><SearchOutlined className="feature_products_icon" /></Link></div>
+                </div>
                 <div className="feature_products_info">
                   <p style={{ textTransform: "capitalize" }}>{item.name}</p>
                   <div className="feature_products_price">
@@ -46,7 +50,7 @@ function FeatureProducts(props) {
             ))
           : null}
       </Row>
-      <Row style={{ margin: "0 auto" }}>
+      <Row style={{ margin: "0 auto", marginTop: "40px"}}>
         <Col span={24}>
           <Link className="button" to="products">
             all products
