@@ -4,8 +4,9 @@ import "./css/style.css";
 
 function CustomFurniture(props) {
   return (
+    <>
     <Row className="container_custom">
-      <Row style={{ display: "flex", justifyContent: "space-between" }}>
+      <Row style={{ display: "flex", justifyContent: "space-between" }} className="custom_furniture">
         <Col span={12}>
           <h1
             style={{
@@ -56,6 +57,7 @@ function CustomFurniture(props) {
         </Col>
       </Row>
     </Row>
+    </>
   );
 }
 

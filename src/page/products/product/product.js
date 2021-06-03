@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Row } from "antd";
 import "./css/style.css";
 import { SearchOutlined } from "@ant-design/icons";
@@ -6,7 +6,14 @@ import { Link } from "react-router-dom";
 
 function ProductShopApp(props) {
   const { show, data, searchProcuct } = props;
- 
+  const [dataSearch, setDataSearch] = useState([]);
+
+  // useEffect(() => {
+  //   if (data.length > 0) {
+  //     setDataSearch(data);
+  //   }
+  // }, [data]);
+
   return (
     <Row className="containers_products">
       {data.length > 0 ? (
@@ -17,6 +24,7 @@ function ProductShopApp(props) {
             } else if (val.name.toLowerCase().includes(searchProcuct)) {
               return val;
             }
+            
           })
           .map((item, index) => {
             return (
@@ -35,7 +43,7 @@ function ProductShopApp(props) {
                     className={show ? "" : "feature_products_image_hover_show"}
                   >
                     {!show ? (
-                      <Link to="/">
+                      <Link to={`products/${item.id}`}>
                         <SearchOutlined className="feature_products_icon_show" />
                       </Link>
                     ) : null}
@@ -48,7 +56,9 @@ function ProductShopApp(props) {
                   ) : (
                     <p style={{ textTransform: "capitalize" }}>{item.name}</p>
                   )}
-                  <span style={{color: '#b99179'}}>$ {item.price.toFixed(2) / 100}</span>
+                  <span style={{ color: "#b99179" }}>
+                    $ {item.price.toFixed(2) / 100}
+                  </span>
                   <p style={show ? {} : { display: "none" }}>
                     {item.description.slice(0, 160)}...
                   </p>
@@ -60,9 +70,9 @@ function ProductShopApp(props) {
             );
           })
       ) : (
-        <h2 style={{fontWeight: 'bold'}}>
-        Sorry, no products matched your search.
-      </h2>
+        <h2 style={{ fontWeight: "bold" }}>
+          Sorry, no products matched your search.
+        </h2>
       )}
     </Row>
   );

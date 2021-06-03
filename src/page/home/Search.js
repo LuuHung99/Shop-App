@@ -3,6 +3,7 @@ import React from "react";
 
 function SearchHome(props) {
   return (
+    <>
     <Row className="container_search">
       <Col span={12} className="search_info">
         <h1>Join our newsletter and get 20% off</h1>
@@ -17,6 +18,7 @@ function SearchHome(props) {
         <button>Subscribe</button>
       </Col>
     </Row>
+    </>
   );
 }
 

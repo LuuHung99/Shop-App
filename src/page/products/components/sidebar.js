@@ -16,6 +16,8 @@ function SidebarProduct(props) {
   const [showProduct, setShowProduct] = useState(false);
   const [shipping, setShipping] = useState(true);
   const [longData, setLongData] = useState();
+  const [sortBy, setSortBy] = useState("Price (Lowest)");
+  // const [clearFilter, setClearFilter] = useState();
 
   let cate = [
     { id: 0, category: "all" },
@@ -62,27 +64,52 @@ function SidebarProduct(props) {
     },
   ];
 
+  let sortByProduct = [
+    {
+      id: 0,
+      sorts: "Price (Lowest)",
+    },
+    {
+      id: 1,
+      sorts: "Price (Highest)",
+    },
+    {
+      id: 2,
+      sorts: "Name (A-Z)",
+    },
+
+    {
+      id: 3,
+      sorts: "Name (Z-A)",
+    },
+  ];
+
   useEffect(() => {
     const getData = setTimeout(() => {
-    let result =
-    dataShop.length > 0
-      ? dataShop.filter(
-          (x) =>
-            (category !== "all" ? x.category === category : x) &&
-            (company !== "all" ? x.company === company : x) &&
-            (inputValue > 0 ? x.price <= inputValue * 3100 : null) &&
-            (color !== "#BF00FF" ? x.colors.map((item) => item) == color : x)
-          //  &&
-          // (shipping !== "All" ? x.shipping == true : x)
-        )
-      : dataShop;
+      let result =
+        dataShop.length > 0
+          ? dataShop.filter(
+              (x) =>
+                (category !== "all" ? x.category === category : x) &&
+                (company !== "all" ? x.company === company : x) &&
+                (inputValue > 0 ? x.price <= inputValue * 3100 : null) &&
+                (color !== "#BF00FF" ? x.colors.map((item) => item) == color : x) &&
+                (shipping !== true ? x.shipping === shipping  : x) 
+                // (sortBy === "Price (Lowest)" ?  x.price.sort((a,b) => {return a-b} ) === sortBy : x)  
+                // (sortBy === "Price (Lowest)" ?  x.name.sort((a,b) => a.localeCompare(b) )=== sortBy : x) 
+                // (sortBy === "Price (Highest)" ? x.name.sort((a,b) => b.localeCompare(a)) : x)
+
+              //  &&
+              // (shipping !== "All" ? x.shipping == true : x)
+            )
+          : dataShop;
       setData(result);
       setLongData(result);
-  }, 200);
+      
+    }, 200);
     return () => clearTimeout(getData);
-}, [data]);
- 
-  
+  }, [data]);
+
   const onChange = (val) => {
     setInputValue(val);
   };
@@ -95,10 +122,9 @@ function SidebarProduct(props) {
     setShowProduct(true);
   };
 
-  const clearFilter = () => {
-    setData(data);
-  };
-
+ const clearFilter = (data) => {
+   setData(data);
+ }
   return (
     <Layout style={{ backgroundColor: "#fff" }}>
       <div>
@@ -116,11 +142,15 @@ function SidebarProduct(props) {
               <p>{longData && longData.length} Products Found</p>
               <hr />
               <span style={{ fontSize: "16px" }}>Sort by</span>
-              <select className="head_options">
-                <option value="value">Price (Lowest)</option>
-                <option value="value">Price (Highest)</option>
-                <option value="value">Name (A - Z)</option>
-                <option value="vaule">Name (Z - A)</option>
+              <select
+                className="head_options"
+                onChange={(e) => setSortBy(e.target.value)}
+              >
+                {sortByProduct.map((item, index) => (
+                  <option key={index} value={item.sorts} >
+                    {item.sorts}
+                  </option>
+                ))}
               </select>
             </div>
           </Col>
@@ -168,8 +198,7 @@ function SidebarProduct(props) {
                       style={{ backgroundColor: item.color }}
                       key={index}
                       onClick={() => setColor(item.color)}
-                    >
-                    </div>
+                    ></div>
                   );
                 })}
               </div>
@@ -187,9 +216,9 @@ function SidebarProduct(props) {
 
               <div style={{ display: "flex", marginTop: "30px" }}>
                 <p>Free Shipping</p>
-                <input type="checkbox" style={{ margin: "7px 10px" }} />
+                <input type="checkbox" style={{ margin: "7px 10px" }} onchange={(e)=>setShipping(e.target.value)} />
               </div>
-              <button className="sidebar_clear" onClick={clearFilter}>
+              <button className="sidebar_clear" onClick={()=> clearFilter(data)}  >
                 Clear Filters
               </button>
             </div>

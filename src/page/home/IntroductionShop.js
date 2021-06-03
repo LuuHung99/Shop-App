@@ -5,8 +5,9 @@ import "./css/style.css";
 
 function IntroductionShop(props) {
   return (
+    <>
     <Row className="container_introducton">
-      <Col span={12}>
+      <Col span={12} className="introduction_detail">
         <h1>Design Your Comfort Zone</h1>
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto, at
@@ -23,6 +24,7 @@ function IntroductionShop(props) {
         <div className="introducton_img3"></div>
       </Col>
     </Row>
+    </>
   );
 }
 

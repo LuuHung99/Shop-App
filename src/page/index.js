@@ -9,6 +9,7 @@ import About from "./about/index";
 import Products from "./products/index";
 import Cart from "./cart/index";
 import Login from "./login/index";
+import DetailProducts from "./detailProducts/index";
 // const Home = lazy(() => import("./home/index"));
 // const About = lazy(() => import("./about/index"));
 // const Products = lazy(() => import("./products/index"));
@@ -19,7 +20,6 @@ import Login from "./login/index";
 function PageComponents(props) {
   return (
     <Router>
-      
         <Switch>
           <Route exact path="/">
             <Home />
@@ -27,7 +27,7 @@ function PageComponents(props) {
           <Route path="/about">
             <About />
           </Route>
-          <Route path="/products">
+          <Route exact path="/products">
             <Products />
           </Route>
           <Route path="/cart">
@@ -36,8 +36,10 @@ function PageComponents(props) {
           <Route path="/login">
             <Login />
           </Route>
+          <Route path="/products/:id">
+            <DetailProducts />
+          </Route>
         </Switch>
-      
     </Router>
   );
 }

@@ -22,6 +22,7 @@ function FeatureProducts(props) {
   }, [dataShop]);
 
   return (
+    <>
     <Row className="container_products">
       <Col span={24} className="feature_products">
         <h1>Featured Products</h1>
@@ -30,15 +31,15 @@ function FeatureProducts(props) {
       <Row className="feature_products_detail">
         {data.length > 0
           ? data.map((item, index) => (
-              <Col span={8} key={index}>
+              <Col span={8} key={index} className="feature_products_res" >
                 <div className="feature_products_show">
                   <img
-                    style={{ height: 270, objectFit: "cover" }}
+                    style={{ height: 230, objectFit: "cover" }}
                     src={item.image}
                     alt=""
                     className="feature_products_image"
                   />
-                  <div className="feature_products_image_hover"><Link to="products"><SearchOutlined className="feature_products_icon" /></Link></div>
+                  <div className="feature_products_image_hover"><Link to={`products/${item.id}`}><SearchOutlined className="feature_products_icon" /></Link></div>
                 </div>
                 <div className="feature_products_info">
                   <p style={{ textTransform: "capitalize" }}>{item.name}</p>
@@ -58,6 +59,7 @@ function FeatureProducts(props) {
         </Col>
       </Row>
     </Row>
+    </>
   );
 }
 
