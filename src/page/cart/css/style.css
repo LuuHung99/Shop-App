@@ -50,7 +50,6 @@
     cursor: pointer;
 }
 
-
 .cart_detail_login {
     display: flex;
     justify-content: flex-end;
@@ -63,7 +62,7 @@
 .cart_detail {
     margin-top: 50px;
     padding: 30px ;
-    border: 1px solid #000;
+    border: 0.1px solid rgb(77, 74, 74);
     width: auto;
     height: auto;
 }
@@ -86,4 +85,5 @@
     padding: 5px 120px;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
 }

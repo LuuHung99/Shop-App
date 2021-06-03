@@ -5,6 +5,7 @@ const initState = {
   finished: false,
   cartItems: [],
   sumMoney: 0,
+  sumSubTotal: 0,
   countItem: 0,
   errorCart: null,
 };
@@ -21,13 +22,14 @@ export const cartReducer = (state = initState, action) => {
         ...state,
         statusAdd: state.status,
       };
-    case types.ADD_CART_FAIL:
+    case types.ADD_CART_FAILURE:
       return {
         ...state,
         cartItems: state.err,
       };
     case types.ADD_CART_SUCCESS:
       const detailPd = action.data;
+      console.log(detailPd);
       // truong hop gio hang chua ton tai hay la chua co san pham nao ben trong
       if (!state.cartItems) {
         // bo sung them truong so luong mua san pham vao ben trong du lieu cua san pham
@@ -63,5 +65,40 @@ export const cartReducer = (state = initState, action) => {
           };
         }
       }
+    case types.DELETE_ITEM_CART:
+      const idDel = action.id;
+      // lay ra san pham bi xoa trong gio hang
+      const itemDel = state.cartItems.filter((item) => item.id === idDel)[0];
+      // lay ra toan bo san pham con lai trong gio hang
+      const newCartItems = state.cartItems.filter((item) => item.id !== idDel);
+      return {
+        ...state,
+        cartItems: newCartItems,
+        errorCart: null,
+        countItem: state.countItem - 1,
+        sumMoney:
+          parseInt(state.sumMoney) - parseInt(itemDel.price) * itemDel.qty,
+      };
+    case types.CHANGE_QTY_CART:
+      const idChange = action.id;
+      const qtyChange = action.qty;
+      // cap nhat lai so luong san pham trong gio hang
+      const newCarts = state.cartItems.map((item) => {
+        return item.id === idChange ? { ...item, qty: qtyChange } : item;
+      });
+      const newTotalMoney = state.cartItems
+        .map((item) => parseInt(item.price) * item.qty)
+        .reduce((pre, next) => pre + next);
+      
+      //state.cartItems.map(item => parseInt(item.price) * item.qty) : tra ve 1 mang chua toan bo so tien cua tung san pham
+      // reduce((pre, next) => pre + next) : cong don so tien nam trong mang
+      return {
+        ...state,
+        cartItems: newCarts,
+        sumMoney: newTotalMoney,
+        errorCart: null,
+      };
+    default:
+      return state;
   }
 };

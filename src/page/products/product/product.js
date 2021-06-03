@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Col, Row } from "antd";
 import "./css/style.css";
 import { SearchOutlined } from "@ant-design/icons";
@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 function ProductShopApp(props) {
   const { show, data, searchProcuct } = props;
-  const [dataSearch, setDataSearch] = useState([]);
+  // const [dataSearch, setDataSearch] = useState([]);
 
   // useEffect(() => {
   //   if (data.length > 0) {
@@ -57,7 +57,7 @@ function ProductShopApp(props) {
                     <p style={{ textTransform: "capitalize" }}>{item.name}</p>
                   )}
                   <span style={{ color: "#b99179" }}>
-                    $ {item.price.toFixed(2) / 100}
+                  $ {(item.price.toFixed(2) / 100 ).toLocaleString()}
                   </span>
                   <p style={show ? {} : { display: "none" }}>
                     {item.description.slice(0, 160)}...

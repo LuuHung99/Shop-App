@@ -8,7 +8,8 @@ import Home from "./home/index";
 import About from "./about/index";
 import Products from "./products/index";
 import Cart from "./cart/index";
-import Login from "./login/index";
+import Login from "./authen/login";
+import Register from "./authen/register";
 import DetailProducts from "./detailProducts/index";
 // const Home = lazy(() => import("./home/index"));
 // const About = lazy(() => import("./about/index"));
@@ -35,6 +36,9 @@ function PageComponents(props) {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/register">
+            <Register/>
           </Route>
           <Route path="/products/:id">
             <DetailProducts />

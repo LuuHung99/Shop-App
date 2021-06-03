@@ -5,7 +5,7 @@ import { Row, Col, Button, Rate } from "antd";
 import { Link, useParams } from "react-router-dom";
 import { getDataShopById } from "../../services/api";
 import {useDispatch} from "react-redux";
-// import {ADD_CART} from "../../page/cart/actions/index";
+import * as actions from "../../page/cart/actions/index";
 
 function DetailProducts(props) {
   const { id } = useParams();
@@ -13,11 +13,11 @@ function DetailProducts(props) {
   const [image, setImage] = useState([]);
   const [count, setCount] = useState(1);
   const [imageFirst, setImageFirst] = useState();
-  console.log("imageFirst", imageFirst);
+  // console.log("imageFirst", imageFirst);
   const dispatch = useDispatch();
 
   const addCart = (id) => {
-    dispatch({type: "ADD_CART"}, id);
+    dispatch(actions.getDataCart(id));
   }
 
   useEffect(() => {
@@ -135,7 +135,7 @@ function DetailProducts(props) {
                     fontWeight: "bold",
                   }}
                 >
-                  $ {data.price ? data.price.toFixed(2) / 100 : null}
+                  $ {data.price ? (data.price.toFixed(2) / 100).toLocaleString() : null}
                 </div>
                 <p
                   style={{

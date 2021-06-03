@@ -5,13 +5,25 @@ import Directional from "../../components/Directional";
 import { Row, Col } from "antd";
 import { Link } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
+import { useSelector } from "react-redux";
+import * as reselect from "./reselect/reselect-cart";
+import { createStructuredSelector } from "reselect";
 
 function CartPage(props) {
-  const [showCart, setShowCart] = useState(true);
+  const [shipping, setShipping] = useState("5.34");
+  console.log(typeof(parseInt(shipping)));
+  const { dataCart, totalMoney  } = useSelector(
+    createStructuredSelector({
+      dataCart: reselect.getDataCart,
+      totalMoney: reselect.getTotalMoney,
+ 
+    })
+  );
+
   return (
-    <>
+    <React.Fragment>
       <LayoutPage>
-        {showCart ? (
+        {!dataCart.length > 0 ? (
           <Row
             style={{
               textAlign: "center",
@@ -25,7 +37,7 @@ function CartPage(props) {
               </h1>
             </Col>
             <Col span={24}>
-              <Link to="/product">
+              <Link to="/products">
                 <button
                   style={{
                     textTransform: "uppercase",
@@ -37,6 +49,7 @@ function CartPage(props) {
                     height: "auto",
                     padding: "5px 15px",
                     borderRadius: "5px",
+                    cursor: "pointer",
                   }}
                 >
                   fill it
@@ -59,94 +72,70 @@ function CartPage(props) {
                   <hr />
                 </Col>
               </Row>
-
-              <Row style={{ padding: "40px 0px", fontSize: 17 }}>
-                <Col span={6}>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      paddingLeft: "20px",
-                    }}
-                  >
-                    <img
-                      src="https://dl.airtable.com/.attachments/e2eef862d9b7a2fb0aa74fa24fbf97bb/25c4bc17/0-pexels-pixabay-462235.jpg"
-                      className="cart_img"
-                    />
-                    <div style={{ marginLeft: 20 }}>
-                      <div>Modern Poster</div>
-                      <div>Color: red</div>
-                    </div>
-                  </div>
-                </Col>
-                <Col span={6} className="cart_price">
-                  $ 30.99
-                </Col>
-                <Col span={6}>
-                  <div className="cart_count">
-                    <button>-</button>
-                    <button>1</button>
-                    <button>+</button>
-                  </div>
-                </Col>
-                <Col span={4}>$ 30.99</Col>
-                <Col span={2}>
-                  <DeleteOutlined
-                    style={{
-                      fontSize: 20,
-                      backgroundColor: "red",
-                      color: "white",
-                      padding: 2,
-                      borderRadius: "2px",
-                      cursor: "pointer",
-                    }}
-                  />
-                </Col>
-              </Row>
-
-              <Row style={{ padding: "40px 0px", fontSize: 17 }}>
-                <Col span={6}>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      paddingLeft: "20px",
-                    }}
-                  >
-                    <img
-                      src="https://dl.airtable.com/.attachments/e2eef862d9b7a2fb0aa74fa24fbf97bb/25c4bc17/0-pexels-pixabay-462235.jpg"
-                      className="cart_img"
-                    />
-                    <div style={{ marginLeft: 20 }}>
-                      <div>Modern Poster</div>
-                      <div>Color: red</div>
-                    </div>
-                  </div>
-                </Col>
-                <Col span={6} className="cart_price">
-                  $ 30.99
-                </Col>
-                <Col span={6}>
-                  <div className="cart_count">
-                    <button>-</button>
-                    <button>1</button>
-                    <button>+</button>
-                  </div>
-                </Col>
-                <Col span={4}>$ 30.99</Col>
-                <Col span={2}>
-                  <DeleteOutlined
-                    style={{
-                      fontSize: 20,
-                      backgroundColor: "red",
-                      color: "white",
-                      padding: 2,
-                      borderRadius: "2px",
-                      cursor: "pointer",
-                    }}
-                  />
-                </Col>
-              </Row>
+              {dataCart.length > 0
+                ? dataCart.map((item, index) => (
+                    <Row
+                      style={{ padding: "40px 0px", fontSize: 17 }}
+                      key={index}
+                    >
+                      <Col span={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            paddingLeft: "20px",
+                          }}
+                        >
+                          <img
+                            src={item.images[0].url}
+                            className="cart_img"
+                            alt=""
+                          />
+                          <div style={{ marginLeft: 20 }}>
+                            <div style={{ textTransform: "capitalize" }}>
+                              {item.name}
+                            </div>
+                            <div style={{ display: "flex" }}>
+                              <div>Color: </div>
+                              <div
+                                style={{
+                                  width: "15px",
+                                  height: "15px",
+                                  borderRadius: "15px",
+                                  backgroundColor: item.colors[0],
+                                  margin: "8px 10px",
+                                }}
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
+                      </Col>
+                      <Col span={6} className="cart_price">
+                        $ {((item.price * item.qty).toFixed(2) / 100 ).toLocaleString()}
+                      </Col>
+                      <Col span={6}>
+                        <div className="cart_count">
+                          <button>-</button>
+                          <button>{item.qty}</button>
+                          <button>+</button>
+                        </div>
+                      </Col>
+                      <Col span={4}> $ {((item.price * item.qty).toFixed(2) / 100 ).toLocaleString()}</Col>
+                      <Col span={2}>
+                        <DeleteOutlined
+                          style={{
+                            fontSize: 20,
+                            backgroundColor: "red",
+                            color: "white",
+                            padding: 2,
+                            borderRadius: "2px",
+                            cursor: "pointer",
+                          }}
+                        />
+                      </Col>
+                    </Row>
+                  ))
+                : null}
 
               <Row>
                 <Col span={24}>
@@ -165,38 +154,42 @@ function CartPage(props) {
                   <Link to="/products" className="cart_button">
                     Continue Shopping
                   </Link>
-                  <botton className="cart_button_delete">
+                  <button className="cart_button_delete">
                     Clear Shopping Cart
-                  </botton>
+                  </button>
                 </Col>
               </Row>
+
               <Row className="cart_details">
-                <Col span={6} className="cart_detail">
+                <Col span={8} className="cart_detail" >
                   <div className="cart_detail_price">
-                    <h3>Subtotal </h3>
-                    <h3>$190.98</h3>
+                    <h5>Subtotal </h5>
+                    <h5>$ {(totalMoney.toFixed(2) / 100).toLocaleString()}</h5>
                   </div>
                   <div className="cart_detail_price">
-                    <p>Shipping Fee :</p>
-                    <div>$5.34</div>
+                    <h6>Shipping Fee :</h6>
+                    <h6>$ {shipping}</h6>
                   </div>
                   <hr />
-                  <di className="cart_detail_price">
-                    <h1>Order Total :</h1>
-                    <h1>$196.32</h1>
-                  </di>
+                  <div className="cart_detail_price">
+                    <h3>Order Total :</h3>
+                    <h3>$ {totalMoney ? (totalMoney.toFixed(2) / 100).toLocaleString() - parseInt(shipping)   : null}</h3>
+                  </div>
                 </Col>
               </Row>
+
               <Row className="cart_detail_login">
-                <Col span={6}>
-                  <button className="cart_login">login</button>
+                <Col span={8}>
+                  <Link to="/login">
+                    <button className="cart_login">login</button>
+                  </Link>
                 </Col>
               </Row>
             </div>
           </h1>
         )}
       </LayoutPage>
-    </>
+    </React.Fragment>
   );
 }
 

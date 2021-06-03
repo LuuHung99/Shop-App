@@ -7,7 +7,7 @@ function* CartSaga({ id }) {
   //tiep nhan action cua user truyen vao
   try {
     yield put(actions.startGetDataCart(true));
-    const data = yield call(api.getDataShopById, id);
+    const data = yield call(api.getDataShopById, id);   
     if (data) {
       yield put(actions.getDataCartSuccess(data));
     } else {

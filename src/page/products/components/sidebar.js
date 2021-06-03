@@ -12,7 +12,7 @@ function SidebarProduct(props) {
   const [category, setCategory] = useState("all");
   const [company, setCompany] = useState("all");
   const [color, setColor] = useState("#BF00FF");
-  const [data, setData] = useState("");
+  const [data, setData] = useState([]);
   const [showProduct, setShowProduct] = useState(false);
   const [shipping, setShipping] = useState(true);
   const [longData, setLongData] = useState();
@@ -95,9 +95,10 @@ function SidebarProduct(props) {
                 (inputValue > 0 ? x.price <= inputValue * 3100 : null) &&
                 (color !== "#BF00FF" ? x.colors.map((item) => item) == color : x) &&
                 (shipping !== true ? x.shipping === shipping  : x) 
+         
                 // (sortBy === "Price (Lowest)" ?  x.price.sort((a,b) => {return a-b} ) === sortBy : x)  
-                // (sortBy === "Price (Lowest)" ?  x.name.sort((a,b) => a.localeCompare(b) )=== sortBy : x) 
-                // (sortBy === "Price (Highest)" ? x.name.sort((a,b) => b.localeCompare(a)) : x)
+                // (sortBy === "Price (Lowest)" ?  x.name.sort((a,b) => a.localeCompare(b))=== sortBy : x) 
+                // (sortBy === "Price (Highest)" ? x.name.sort((a,b) => b.localeCompare(a))=== sortBy : x)
 
               //  &&
               // (shipping !== "All" ? x.shipping == true : x)
@@ -110,7 +111,7 @@ function SidebarProduct(props) {
     return () => clearTimeout(getData);
   }, [data]);
 
-  const onChange = (val) => {
+  const onHandleChange = (val) => {
     setInputValue(val);
   };
 
@@ -206,17 +207,17 @@ function SidebarProduct(props) {
               <InputNumber
                 style={{ margin: "0 16px", border: "none" }}
                 value={inputValue}
-                onChange={onChange}
+                onChange={onHandleChange}
               />
               <Slider
-                onChange={onChange}
+                onChange={onHandleChange}
                 value={typeof inputValue === "number" ? inputValue : 0}
                 style={{ width: "70%", height: "10px" }}
               />
 
               <div style={{ display: "flex", marginTop: "30px" }}>
                 <p>Free Shipping</p>
-                <input type="checkbox" style={{ margin: "7px 10px" }} onchange={(e)=>setShipping(e.target.value)} />
+                <input type="checkbox" style={{ margin: "7px 10px" }} onChange={()=>setShipping(true)} />
               </div>
               <button className="sidebar_clear" onClick={()=> clearFilter(data)}  >
                 Clear Filters
