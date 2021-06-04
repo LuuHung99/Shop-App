@@ -1,4 +1,6 @@
 import React from "react";
+
+//ConnectedRouter(redux) thay cho Router của Hook
 import {
   BrowserRouter as Router,
   Switch,

@@ -19,12 +19,12 @@ export const cartReducer = (state = initState, action) => {
     case types.FINISH_ADD_CART:
       return {
         ...state,
-        statusAdd: state.status,
+        finished: state.status,
       };
     case types.ADD_CART_FAILURE:
       return {
         ...state,
-        cartItems: state.err,
+        errorCart: state.err,
       };
     case types.ADD_CART_SUCCESS:
       const detailPd = action.data;
@@ -80,9 +80,9 @@ export const cartReducer = (state = initState, action) => {
 
     case types.DELETE_ALL_ITEM_CART:
       //lay toan bo san pham trong gio hang
-      const itemAll = state.cartItems.map(item=>item);
+      const itemAll = state.cartItems.map(item=>item.id);
       //Xoa toan bo san pham trong gio hang
-      const newDeleteCartAll = itemAll.filter((item) => {return item})
+      const newDeleteCartAll = itemAll.filter((e) => { return e})
       return {
         ...state,
         cartItems: newDeleteCartAll,

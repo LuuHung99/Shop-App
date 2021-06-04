@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./css/style.css";
 import LayoutPage from "../../components/Layout";
 import Directional from "../../components/Directional";
-import { Row, Col, InputNumber } from "antd";
+import { Row, Col, InputNumber, message } from "antd";
 import { Link } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
@@ -29,8 +29,8 @@ function CartPage(props) {
   };
 
   const changeDeleteItemCart = (id) => {
-    dispatch(action.deleteAllItems(id))
-  }
+    dispatch(action.deleteAllItems(id));
+  };
 
   return (
     <React.Fragment>
@@ -70,7 +70,7 @@ function CartPage(props) {
             </Col>
           </Row>
         ) : (
-          <h1>
+          <>
             <Directional />
             <div className="container_cart">
               <Row className="cart_title">
@@ -90,7 +90,7 @@ function CartPage(props) {
                       style={{ padding: "40px 0px", fontSize: 17 }}
                       key={index}
                     >
-                      <Col span={6}>
+                      <Col span={6} style={{marginTop: '-20px'}}>
                         <div
                           style={{
                             display: "flex",
@@ -104,10 +104,10 @@ function CartPage(props) {
                             alt=""
                           />
                           <div style={{ marginLeft: 20 }}>
-                            <div style={{ textTransform: "capitalize" }}>
+                            <div style={{ textTransform: "capitalize", fontSize: 14, fontWeight: "bold" }}>
                               {item.name}
                             </div>
-                            <div style={{ display: "flex" }}>
+                            <div style={{ display: "flex", fontSize: 14 }}>
                               <div>Color: </div>
                               <div
                                 style={{
@@ -115,7 +115,7 @@ function CartPage(props) {
                                   height: "15px",
                                   borderRadius: "15px",
                                   backgroundColor: item.colors[0],
-                                  margin: "8px 10px",
+                                  margin: "4px 10px",
                                 }}
                               ></div>
                             </div>
@@ -139,7 +139,7 @@ function CartPage(props) {
                         </div>
                       </Col>
                       <Col span={4}>
-                        $ 
+                        $
                         {(
                           (item.price * item.qty).toFixed(2) / 100
                         ).toLocaleString()}
@@ -178,7 +178,10 @@ function CartPage(props) {
                   <Link to="/products" className="cart_button">
                     Continue Shopping
                   </Link>
-                  <button className="cart_button_delete" onClick={()=>changeDeleteItemCart()}>
+                  <button
+                    className="cart_button_delete"
+                    onClick={() => changeDeleteItemCart()}
+                  >
                     Clear Shopping Cart
                   </button>
                 </Col>
@@ -187,23 +190,23 @@ function CartPage(props) {
               <Row className="cart_details">
                 <Col span={8} className="cart_detail">
                   <div className="cart_detail_price">
-                    <h5>Subtotal </h5>
-                    <h5>$ {(totalMoney.toFixed(2) / 100).toLocaleString()}</h5>
+                    <h2>Subtotal </h2>
+                    <h2>${(totalMoney.toFixed(2) / 100).toLocaleString()}</h2>
                   </div>
                   <div className="cart_detail_price">
-                    <h6>Shipping Fee :</h6>
-                    <h6>$ {shipping}</h6>
+                    <h3>Shipping Fee :</h3>
+                    <h3>$ {shipping}</h3>
                   </div>
                   <hr />
-                  <div className="cart_detail_price">
-                    <h3>Order Total :</h3>
-                    <h3>
-                      ${" "}
+                  <div className="cart_detail_price" style={{fontSize: 18}}>
+                    <h1>Order Total :</h1>
+                    <h1>
+                      $ 
                       {(
                         totalMoney.toFixed(2) / 100 -
                         shipping
                       ).toLocaleString()}
-                    </h3>
+                    </h1>
                   </div>
                 </Col>
               </Row>
@@ -216,7 +219,7 @@ function CartPage(props) {
                 </Col>
               </Row>
             </div>
-          </h1>
+          </>
         )}
       </LayoutPage>
     </React.Fragment>

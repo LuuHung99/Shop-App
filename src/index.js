@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import {Spin} from "antd";
 
-const { store, persistor } = configStore( );
+const { store, persistor } = configStore();
 
 ReactDOM.render(
   <Provider store={store}>

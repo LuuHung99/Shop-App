@@ -6,8 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import { getDataShopById } from "../../services/api";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../page/cart/actions/index";
-import { createStructuredSelector } from "reselect";
-import * as reselect from "../../page/cart/reselect/reselect-cart";
+ 
 function DetailProducts(props) {
   const { id } = useParams();
   const [data, setData] = useState({});
@@ -16,28 +15,17 @@ function DetailProducts(props) {
   const [imageFirst, setImageFirst] = useState();
   // console.log("imageFirst", imageFirst);
   const dispatch = useDispatch();
-
-  const { totalItems } = useSelector(
-    createStructuredSelector({
-      totalItems: reselect.getCountItems,
-    })
-  );
-
-  useEffect(() => {
-    if (totalItems) {
-      setCount(totalItems);
-    }
-  }, [totalItems]);
+  const finished = useSelector((state) => state.cartReducer.finished);
+  
 
   const addCart = (id) => {
     dispatch(actions.getDataCart(id));
     if (finished) {
-      message("Add product to cart successfully", 2);
+      console.log("finished", finished);
+      message.success("Add product to cart successfully", 2);
     }
   };
-
-  const finished = useSelector((state) => state.cartReducer.finished);
-
+ 
   useEffect(() => {
     if (data.images) {
       const dataShop = data.images.map((item) => item.url);
@@ -199,8 +187,8 @@ function DetailProducts(props) {
                   <button>{count}</button>
                   <button onClick={() => setCount(count + 1)}>+</button>
                 </div>
-                <Button className="detail_button_prodduct">
-                  <Link to="/cart" onClick={() => addCart(data.id)}>
+                <Button className="detail_button_prodduct" onClick={() => addCart(data.id)}>
+                  <Link to="/cart" >
                     add to cart
                   </Link>
                 </Button>
