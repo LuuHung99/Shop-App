@@ -3,8 +3,15 @@ import { NavLink } from "react-router-dom";
 import { ShoppingCartOutlined, UserAddOutlined } from "@ant-design/icons";
 import { Row, Col } from "antd";
 import "./css/style.css";
+import {useSelector} from "react-redux";
+import {createStructuredSelector} from "reselect";
+import * as reselect from '../page/cart/reselect/reselect-cart';
 
 function HeaderPage(props) {
+
+  const {totalItems} = useSelector(createStructuredSelector({
+    totalItems: reselect.getCountItems
+  }))
   return (
     <>
       <Row className="container_header">
@@ -43,7 +50,7 @@ function HeaderPage(props) {
               Cart
             </NavLink>
             <ShoppingCartOutlined />
-            <div className="header_cart">0</div>
+            <div className="header_cart">{totalItems}</div>
           </div>
 
           <div style={{ cursor: "pointer", marginLeft: "5px" }}>

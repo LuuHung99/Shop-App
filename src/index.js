@@ -5,12 +5,16 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import configStore from "./store/configStore";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import {Spin} from "antd";
 
-const { store } = configStore();
+const { store, persistor } = configStore( );
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <PersistGate loading={<Spin />} persistor={persistor}>
+      <App />
+    </PersistGate>
   </Provider>,
 
   document.getElementById("root")

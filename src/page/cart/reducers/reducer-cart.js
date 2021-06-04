@@ -5,7 +5,6 @@ const initState = {
   finished: false,
   cartItems: [],
   sumMoney: 0,
-  sumSubTotal: 0,
   countItem: 0,
   errorCart: null,
 };
@@ -29,7 +28,6 @@ export const cartReducer = (state = initState, action) => {
       };
     case types.ADD_CART_SUCCESS:
       const detailPd = action.data;
-      console.log(detailPd);
       // truong hop gio hang chua ton tai hay la chua co san pham nao ben trong
       if (!state.cartItems) {
         // bo sung them truong so luong mua san pham vao ben trong du lieu cua san pham
@@ -79,9 +77,23 @@ export const cartReducer = (state = initState, action) => {
         sumMoney:
           parseInt(state.sumMoney) - parseInt(itemDel.price) * itemDel.qty,
       };
+
+    case types.DELETE_ALL_ITEM_CART:
+      //lay toan bo san pham trong gio hang
+      const itemAll = state.cartItems.map(item=>item);
+      //Xoa toan bo san pham trong gio hang
+      const newDeleteCartAll = itemAll.filter((item) => {return item})
+      return {
+        ...state,
+        cartItems: newDeleteCartAll,
+        errorCart: null,
+        countItem: 0
+      }
+
     case types.CHANGE_QTY_CART:
       const idChange = action.id;
       const qtyChange = action.qty;
+      console.log(idChange, qtyChange);
       // cap nhat lai so luong san pham trong gio hang
       const newCarts = state.cartItems.map((item) => {
         return item.id === idChange ? { ...item, qty: qtyChange } : item;
@@ -89,7 +101,8 @@ export const cartReducer = (state = initState, action) => {
       const newTotalMoney = state.cartItems
         .map((item) => parseInt(item.price) * item.qty)
         .reduce((pre, next) => pre + next);
-      
+ 
+      console.log(newTotalMoney);
       //state.cartItems.map(item => parseInt(item.price) * item.qty) : tra ve 1 mang chua toan bo so tien cua tung san pham
       // reduce((pre, next) => pre + next) : cong don so tien nam trong mang
       return {
@@ -98,6 +111,7 @@ export const cartReducer = (state = initState, action) => {
         sumMoney: newTotalMoney,
         errorCart: null,
       };
+       
     default:
       return state;
   }

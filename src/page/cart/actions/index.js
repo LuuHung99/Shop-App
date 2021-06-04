@@ -29,6 +29,12 @@ export const deleteItemCart = (id) => ({
   type: types.DELETE_ITEM_CART,
   id,
 });
+
+export const deleteAllItems = (id) => ({
+  type: types.DELETE_ALL_ITEM_CART,
+  id
+})
+
 export const changeQtyCart = (id, qty) => ({
   type: types.CHANGE_QTY_CART,
   id,

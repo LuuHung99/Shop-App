@@ -2,23 +2,35 @@ import React, { useState } from "react";
 import "./css/style.css";
 import LayoutPage from "../../components/Layout";
 import Directional from "../../components/Directional";
-import { Row, Col } from "antd";
+import { Row, Col, InputNumber } from "antd";
 import { Link } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import * as reselect from "./reselect/reselect-cart";
 import { createStructuredSelector } from "reselect";
+import * as action from "./actions/index";
 
 function CartPage(props) {
-  const [shipping, setShipping] = useState("5.34");
-  console.log(typeof(parseInt(shipping)));
-  const { dataCart, totalMoney  } = useSelector(
+  const [shipping, setShipping] = useState(5.34);
+  const dispatch = useDispatch();
+  const { dataCart, totalMoney } = useSelector(
     createStructuredSelector({
       dataCart: reselect.getDataCart,
       totalMoney: reselect.getTotalMoney,
- 
     })
   );
+
+  const remoteItemCart = (id) => {
+    dispatch(action.deleteItemCart(id));
+  };
+
+  const changeItemCart = (id, qty) => {
+    dispatch(action.changeQtyCart(id, qty));
+  };
+
+  const changeDeleteItemCart = (id) => {
+    dispatch(action.deleteAllItems(id))
+  }
 
   return (
     <React.Fragment>
@@ -111,16 +123,27 @@ function CartPage(props) {
                         </div>
                       </Col>
                       <Col span={6} className="cart_price">
-                        $ {((item.price * item.qty).toFixed(2) / 100 ).toLocaleString()}
+                        $ {(item.price.toFixed(2) / 100).toLocaleString()}
                       </Col>
                       <Col span={6}>
                         <div className="cart_count">
-                          <button>-</button>
+                          <InputNumber
+                            min={1}
+                            max={10}
+                            defaultValue={item.qty}
+                            onChange={(val) => changeItemCart(item.id, val)}
+                          />
+                          {/* <button>-</button>
                           <button>{item.qty}</button>
-                          <button>+</button>
+                          <button>+</button> */}
                         </div>
                       </Col>
-                      <Col span={4}> $ {((item.price * item.qty).toFixed(2) / 100 ).toLocaleString()}</Col>
+                      <Col span={4}>
+                        $ 
+                        {(
+                          (item.price * item.qty).toFixed(2) / 100
+                        ).toLocaleString()}
+                      </Col>
                       <Col span={2}>
                         <DeleteOutlined
                           style={{
@@ -131,6 +154,7 @@ function CartPage(props) {
                             borderRadius: "2px",
                             cursor: "pointer",
                           }}
+                          onClick={() => remoteItemCart(item.id)}
                         />
                       </Col>
                     </Row>
@@ -154,14 +178,14 @@ function CartPage(props) {
                   <Link to="/products" className="cart_button">
                     Continue Shopping
                   </Link>
-                  <button className="cart_button_delete">
+                  <button className="cart_button_delete" onClick={()=>changeDeleteItemCart()}>
                     Clear Shopping Cart
                   </button>
                 </Col>
               </Row>
 
               <Row className="cart_details">
-                <Col span={8} className="cart_detail" >
+                <Col span={8} className="cart_detail">
                   <div className="cart_detail_price">
                     <h5>Subtotal </h5>
                     <h5>$ {(totalMoney.toFixed(2) / 100).toLocaleString()}</h5>
@@ -173,7 +197,13 @@ function CartPage(props) {
                   <hr />
                   <div className="cart_detail_price">
                     <h3>Order Total :</h3>
-                    <h3>$ {totalMoney ? (totalMoney.toFixed(2) / 100).toLocaleString() - parseInt(shipping)   : null}</h3>
+                    <h3>
+                      ${" "}
+                      {(
+                        totalMoney.toFixed(2) / 100 -
+                        shipping
+                      ).toLocaleString()}
+                    </h3>
                   </div>
                 </Col>
               </Row>

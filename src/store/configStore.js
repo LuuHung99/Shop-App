@@ -3,13 +3,26 @@ import createSagaMiddleware from "redux-saga";
 import logger from "redux-logger";
 import rootReducer from "../reducers/index";
 import rootSaga from "../sagas/index";
+import {persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
+const configRootCartPersits = {
+  key: "root-persist-config",
+  storage,
+  whitelist: ["cartReducer"],
+};
+
+const rootReducerPersitCart = persistReducer(
+  configRootCartPersits,
+  rootReducer
+);
 
 //create the saga Middleware
 const sagaMiddleware = createSagaMiddleware();
 
 const configStore = (loadState = {}) => {
   const store = createStore(
-    rootReducer,
+    rootReducerPersitCart,
     loadState,
     applyMiddleware(
       sagaMiddleware,
@@ -17,7 +30,8 @@ const configStore = (loadState = {}) => {
     )
   );
   sagaMiddleware.run(rootSaga);
-  return { store};
+  const persistor = persistStore(store);
+  return { store, persistor };
 };
 
 export default configStore;

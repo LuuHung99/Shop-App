@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./css/style.css";
 import LayoutPage from "../../components/Layout";
-import { Row, Col, Button, Rate } from "antd";
+import { Row, Col, Button, Rate, message } from "antd";
 import { Link, useParams } from "react-router-dom";
 import { getDataShopById } from "../../services/api";
-import {useDispatch} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../page/cart/actions/index";
-
+import { createStructuredSelector } from "reselect";
+import * as reselect from "../../page/cart/reselect/reselect-cart";
 function DetailProducts(props) {
   const { id } = useParams();
   const [data, setData] = useState({});
@@ -16,9 +17,26 @@ function DetailProducts(props) {
   // console.log("imageFirst", imageFirst);
   const dispatch = useDispatch();
 
+  const { totalItems } = useSelector(
+    createStructuredSelector({
+      totalItems: reselect.getCountItems,
+    })
+  );
+
+  useEffect(() => {
+    if (totalItems) {
+      setCount(totalItems);
+    }
+  }, [totalItems]);
+
   const addCart = (id) => {
     dispatch(actions.getDataCart(id));
-  }
+    if (finished) {
+      message("Add product to cart successfully", 2);
+    }
+  };
+
+  const finished = useSelector((state) => state.cartReducer.finished);
 
   useEffect(() => {
     if (data.images) {
@@ -135,7 +153,10 @@ function DetailProducts(props) {
                     fontWeight: "bold",
                   }}
                 >
-                  $ {data.price ? (data.price.toFixed(2) / 100).toLocaleString() : null}
+                  ${" "}
+                  {data.price
+                    ? (data.price.toFixed(2) / 100).toLocaleString()
+                    : null}
                 </div>
                 <p
                   style={{
@@ -179,7 +200,9 @@ function DetailProducts(props) {
                   <button onClick={() => setCount(count + 1)}>+</button>
                 </div>
                 <Button className="detail_button_prodduct">
-                  <Link to="/cart" onClick={() =>addCart(data.id)}>add to cart</Link>
+                  <Link to="/cart" onClick={() => addCart(data.id)}>
+                    add to cart
+                  </Link>
                 </Button>
               </Col>
             </>
