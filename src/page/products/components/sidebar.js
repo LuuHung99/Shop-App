@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Input, Slider, InputNumber, Row, Col, Layout } from "antd";
+import { Input, Slider, InputNumber, Row, Col, Layout, Select } from "antd";
 import "./css/style.css";
 import { useSelector } from "react-redux";
 import ProductShopApp from "../product/product";
 import { GroupOutlined, UnorderedListOutlined } from "@ant-design/icons";
+
+const { Option } = Select;
 
 function SidebarProduct(props) {
   const [searchProcuct, setSearchProduct] = useState("");
@@ -18,6 +20,10 @@ function SidebarProduct(props) {
   const [longData, setLongData] = useState();
   const [sortBy, setSortBy] = useState("Price (Lowest)");
   // const [clearFilter, setClearFilter] = useState();
+  const [sortPriceDecre, setSortPriceDecre] = useState();
+  const [sortPriceIncre, setSortPriceIncre] = useState();
+  const [sortNameDecre, setSortNameDecre] = useState();
+  const [sortNameIncre, setSortNameIncre] = useState();
 
   let cate = [
     { id: 0, category: "all" },
@@ -85,6 +91,31 @@ function SidebarProduct(props) {
   ];
 
   useEffect(() => {
+    if (dataShop.length > 0) {
+      // console.log(dataShop);
+      const newPrice = dataShop.map((item) => item.price);
+      const newName = dataShop.map((item) => item.name);
+
+      const newSortPriceIncre = newPrice.sort((a, b) => {
+        return a - b;
+      });
+
+      const newSortPriceDecre = newPrice.sort((a, b) => {
+        return b - a;
+      });
+
+      const newSortNameIncre = newName.sort((a, b) => a.localeCompare(b));
+
+      const newSortNameDecre = newName.sort((a, b) => b.localeCompare(a));
+
+      setSortPriceDecre(newSortPriceDecre);
+      setSortPriceIncre(newSortPriceIncre);
+      setSortNameDecre(newSortNameIncre);
+      setSortNameIncre(newSortNameDecre);
+    }
+  }, [sortBy]);
+
+  useEffect(() => {
     const getData = setTimeout(() => {
       let result =
         dataShop.length > 0
@@ -93,12 +124,25 @@ function SidebarProduct(props) {
                 (category !== "all" ? x.category === category : x) &&
                 (company !== "all" ? x.company === company : x) &&
                 (inputValue > 0 ? x.price <= inputValue * 3100 : null) &&
-                (color !== "#BF00FF" ? x.colors.map((item) => item) == color : x) &&
-                (shipping !== true ? x.shipping === shipping  : x) 
-         
-                // (sortBy === "Price (Lowest)" ?  x.price.sort((a,b) => {return a-b} ) === sortBy : x)  
-                // (sortBy === "Price (Lowest)" ?  x.name.sort((a,b) => a.localeCompare(b))=== sortBy : x) 
-                // (sortBy === "Price (Highest)" ? x.name.sort((a,b) => b.localeCompare(a))=== sortBy : x)
+                (color !== "#BF00FF"
+                  ? x.colors.map((item) => item) == color
+                  : x) &&
+                (shipping !== true ? x.shipping === shipping : x)  
+                  &&
+                  (sortBy == "Price (Lowest)"
+                    ? sortPriceIncre 
+                    : x)  
+                //   (sortBy == "Price (Highest)"
+                //     ? sortPrice.sort((a, b) => {
+                //         return a - b;
+                //       }) == sortBy
+                //     : x)
+                // (sortBy == "Name (A-Z)"
+                //   ? sortName.sort((a, b) => a.localeCompare(b)) !== sortBy
+                //   : x) &&
+                // (sortBy == "Name (Z-A)"
+                //   ? sortName.sort((a, b) => b.localeCompare(a)) !== sortBy
+                //   : x)
 
               //  &&
               // (shipping !== "All" ? x.shipping == true : x)
@@ -106,7 +150,6 @@ function SidebarProduct(props) {
           : dataShop;
       setData(result);
       setLongData(result);
-      
     }, 200);
     return () => clearTimeout(getData);
   }, [data]);
@@ -123,9 +166,9 @@ function SidebarProduct(props) {
     setShowProduct(true);
   };
 
- const clearFilter = (data) => {
-   setData(data);
- }
+  const clearFilter = (data) => {
+    setData(data);
+  };
   return (
     <Layout style={{ backgroundColor: "#fff" }}>
       <div>
@@ -148,11 +191,22 @@ function SidebarProduct(props) {
                 onChange={(e) => setSortBy(e.target.value)}
               >
                 {sortByProduct.map((item, index) => (
-                  <option key={index} value={item.sorts} >
+                  <option key={index} value={item.sorts}>
                     {item.sorts}
                   </option>
                 ))}
               </select>
+
+              {/* <Select
+                defaultValue="Price (Lowest)"
+                style={{ width: 120 }}
+                onChange={handleChange}
+              >
+                <Option value="Price (Lowest)" onClick={handleClickPriceLowest}>Price (Lowest)</Option>
+                <Option value="Price (Highest)">Price (Highest)</Option>
+                <Option value="Name (A-Z)">Name (A-Z)</Option>
+                <Option value="Name (Z-A)">Name (Z-A)</Option>
+              </Select> */}
             </div>
           </Col>
         </Row>
@@ -217,9 +271,16 @@ function SidebarProduct(props) {
 
               <div style={{ display: "flex", marginTop: "30px" }}>
                 <p>Free Shipping</p>
-                <input type="checkbox" style={{ margin: "7px 10px" }} onChange={()=>setShipping(true)} />
+                <input
+                  type="checkbox"
+                  style={{ margin: "7px 10px" }}
+                  onChange={() => setShipping(true)}
+                />
               </div>
-              <button className="sidebar_clear" onClick={()=> clearFilter(data)}  >
+              <button
+                className="sidebar_clear"
+                onClick={() => clearFilter(data)}
+              >
                 Clear Filters
               </button>
             </div>
