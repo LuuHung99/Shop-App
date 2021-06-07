@@ -80,15 +80,17 @@ export const cartReducer = (state = initState, action) => {
 
     case types.DELETE_ALL_ITEM_CART:
       //lay toan bo san pham trong gio hang
-      const itemAll = state.cartItems.map(item=>item.id);
+      const itemAll = state.cartItems.map((item) => item.id);
       //Xoa toan bo san pham trong gio hang
-      const newDeleteCartAll = itemAll.filter((e) => { return e})
+      const newDeleteCartAll = itemAll.filter((e) => {
+        return e;
+      });
       return {
         ...state,
         cartItems: newDeleteCartAll,
         errorCart: null,
-        countItem: 0
-      }
+        countItem: 0,
+      };
 
     case types.CHANGE_QTY_CART:
       const idChange = action.id;
@@ -98,20 +100,24 @@ export const cartReducer = (state = initState, action) => {
       const newCarts = state.cartItems.map((item) => {
         return item.id === idChange ? { ...item, qty: qtyChange } : item;
       });
-      const newTotalMoney = state.cartItems
+
+      //So luong san pham moi thay doi
+
+      const newTotalMoney = newCarts
         .map((item) => parseInt(item.price) * item.qty)
         .reduce((pre, next) => pre + next);
- 
-      console.log(newTotalMoney);
+
+      // console.log("New totle",newTotalMoney);
       //state.cartItems.map(item => parseInt(item.price) * item.qty) : tra ve 1 mang chua toan bo so tien cua tung san pham
       // reduce((pre, next) => pre + next) : cong don so tien nam trong mang
+      
       return {
         ...state,
         cartItems: newCarts,
         sumMoney: newTotalMoney,
         errorCart: null,
       };
-       
+
     default:
       return state;
   }

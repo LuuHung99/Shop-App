@@ -9,10 +9,12 @@ import { useSelector, useDispatch } from "react-redux";
 import * as reselect from "./reselect/reselect-cart";
 import { createStructuredSelector } from "reselect";
 import * as action from "./actions/index";
+import {connect}  from 'react-redux';
 
 function CartPage(props) {
   const [shipping, setShipping] = useState(5.34);
   const dispatch = useDispatch();
+ 
   const { dataCart, totalMoney } = useSelector(
     createStructuredSelector({
       dataCart: reselect.getDataCart,
@@ -28,9 +30,11 @@ function CartPage(props) {
     dispatch(action.changeQtyCart(id, qty));
   };
 
-  const changeDeleteItemCart = (id) => {
-    dispatch(action.deleteAllItems(id));
-  };
+  // const changeDeleteItemCart = (id) => {
+  //   dispatch(action.deleteAllItems(id));
+  // };
+
+  // console.log("prosp reduxer",props.cart.sumMoney)
 
   return (
     <React.Fragment>
@@ -131,7 +135,7 @@ function CartPage(props) {
                             min={1}
                             max={10}
                             defaultValue={item.qty}
-                            onChange={(val) => changeItemCart(item.id, val)}
+                            onChange={(val) =>{ changeItemCart(item.id, val)}}
                           />
                           {/* <button>-</button>
                           <button>{item.qty}</button>
@@ -180,7 +184,7 @@ function CartPage(props) {
                   </Link>
                   <button
                     className="cart_button_delete"
-                    onClick={() => changeDeleteItemCart()}
+                    // onClick={() => changeDeleteItemCart()}
                   >
                     Clear Shopping Cart
                   </button>
@@ -226,4 +230,14 @@ function CartPage(props) {
   );
 }
 
-export default React.memo(CartPage);
+// export default React.memo(CartPage)
+const mapStateToProps = (state)=>{
+  return {
+    cart:state.cartReducer
+
+  }
+}
+
+export default connect(mapStateToProps,{})(CartPage)
+
+

@@ -62,8 +62,9 @@ function ProductShopApp(props) {
                   <p style={show ? {} : { display: "none" }}>
                     {item.description.slice(0, 160)}...
                   </p>
+                  
                   <button style={show ? {} : { display: "none" }}>
-                    details
+                    <Link to={`products/${item.id}`} style={{color: '#fff'}}>details</Link>
                   </button>
                 </div>
               </Col>
