@@ -129,7 +129,7 @@ function SidebarProduct(props) {
                   : x) &&
                 (shipping !== true ? x.shipping === shipping : x)  
                   &&
-                  (sortBy == "Price (Lowest)"
+                  (sortBy === "Price (Lowest)"
                     ? sortPriceIncre 
                     : x)  
                 //   (sortBy == "Price (Highest)"

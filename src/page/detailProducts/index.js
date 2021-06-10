@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./css/style.css";
 import LayoutPage from "../../components/Layout";
 import { Row, Col, Button, Rate, message } from "antd";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, NavLink } from "react-router-dom";
 import { getDataShopById } from "../../services/api";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../page/cart/actions/index";

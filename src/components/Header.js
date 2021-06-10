@@ -42,6 +42,12 @@ function HeaderPage(props) {
                 Products
               </NavLink>
             </li>
+            
+            <li>
+              <NavLink to="/check" style={{ color: "#000" }}>
+                Check out
+              </NavLink>
+            </li>
           </ul>
         </Col>
         <Col className="deader_cart_login">
