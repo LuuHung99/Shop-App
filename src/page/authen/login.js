@@ -8,10 +8,10 @@ function LoginPage(props) {
       <div className="block_login">
         <div className="header_login">
           <img src="/images/badge.png" alt="" />
-          <h2>Github Users</h2>
+          <h2>Log In</h2>
         </div>
         <div className="change_login">
-          <Link to="login">Log in</Link>
+          <Link to="">Log in</Link>
           <Link to="register">Sign up</Link>
         </div>
         <div
@@ -44,7 +44,7 @@ function LoginPage(props) {
         <div style={{ margin: 25, fontWeight: 600 }}>
           <p>Don't remember your password?</p>
         </div>
-        <div className="next_login"><Link to="/" style={{color: '#fff'}}>Log in</Link></div>
+        <div className="next_login"><Link to="/home" style={{color: '#fff'}}>Log in</Link></div>
       </div>
     </div>
   );

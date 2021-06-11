@@ -8,7 +8,7 @@ function Directional(props) {
     return (
         <div className="directional">   
             <h1>
-               <Link to="/" style={{color: '#ab7a5f'}}>Home / </Link> <span style={{textTransform: "capitalize"}}>{name.split("/")[1]}</span> 
+               <Link to="/home" style={{color: '#ab7a5f'}}>Home / </Link> <span style={{textTransform: "capitalize"}}>{name.split("/")[1]}</span> 
             </h1>
         </div>
     );

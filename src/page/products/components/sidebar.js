@@ -5,8 +5,6 @@ import { useSelector } from "react-redux";
 import ProductShopApp from "../product/product";
 import { GroupOutlined, UnorderedListOutlined } from "@ant-design/icons";
 
-const { Option } = Select;
-
 function SidebarProduct(props) {
   const [searchProcuct, setSearchProduct] = useState("");
   const [inputValue, setInputValue] = useState(100);
@@ -18,13 +16,13 @@ function SidebarProduct(props) {
   const [showProduct, setShowProduct] = useState(false);
   const [shipping, setShipping] = useState(true);
   const [longData, setLongData] = useState();
-  const [sortBy, setSortBy] = useState("Price (Lowest)");
+  const [sortBy, setSortBy] = useState("");
   // const [clearFilter, setClearFilter] = useState();
   const [sortPriceDecre, setSortPriceDecre] = useState();
   const [sortPriceIncre, setSortPriceIncre] = useState();
   const [sortNameDecre, setSortNameDecre] = useState();
   const [sortNameIncre, setSortNameIncre] = useState();
-
+  
   let cate = [
     { id: 0, category: "all" },
     { id: 1, category: "office" },
@@ -113,7 +111,7 @@ function SidebarProduct(props) {
       setSortNameDecre(newSortNameIncre);
       setSortNameIncre(newSortNameDecre);
     }
-  }, [sortBy]);
+  }, [dataShop, sortBy]);
 
   useEffect(() => {
     const getData = setTimeout(() => {
@@ -130,7 +128,7 @@ function SidebarProduct(props) {
                 (shipping !== true ? x.shipping === shipping : x)  
                   &&
                   (sortBy === "Price (Lowest)"
-                    ? sortPriceIncre 
+                    ? x.sortPriceIncre === sortBy
                     : x)  
                 //   (sortBy == "Price (Highest)"
                 //     ? sortPrice.sort((a, b) => {
@@ -152,7 +150,7 @@ function SidebarProduct(props) {
       setLongData(result);
     }, 200);
     return () => clearTimeout(getData);
-  }, [data]);
+  }, [category, color, company, data, dataShop, inputValue, shipping, sortBy, sortPriceIncre]);
 
   const onHandleChange = (val) => {
     setInputValue(val);

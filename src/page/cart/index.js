@@ -30,9 +30,9 @@ function CartPage(props) {
     dispatch(action.changeQtyCart(id, qty));
   };
 
-  // const changeDeleteItemCart = (id) => {
-  //   dispatch(action.deleteAllItems(id));
-  // };
+  const changeDeleteItemCart = (id, qty) => {
+    dispatch(action.deleteAllItems(id, qty));
+  };
 
   // console.log("prosp reduxer",props.cart.sumMoney)
 
@@ -184,7 +184,7 @@ function CartPage(props) {
                   </Link>
                   <button
                     className="cart_button_delete"
-                    // onClick={() => changeDeleteItemCart()}
+                    onClick={ changeDeleteItemCart}
                   >
                     Clear Shopping Cart
                   </button>

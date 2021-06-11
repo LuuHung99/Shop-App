@@ -80,16 +80,17 @@ export const cartReducer = (state = initState, action) => {
 
     case types.DELETE_ALL_ITEM_CART:
       //lay toan bo san pham trong gio hang
-      const itemAll = state.cartItems.map((item) => item.id);
+      const itemAll = state.cartItems.map(item => item );
       //Xoa toan bo san pham trong gio hang
       const newDeleteCartAll = itemAll.filter((e) => {
-        return e;
+         
       });
       return {
         ...state,
         cartItems: newDeleteCartAll,
         errorCart: null,
         countItem: 0,
+        sumMoney: 0
       };
 
     case types.CHANGE_QTY_CART:
