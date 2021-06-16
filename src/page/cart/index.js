@@ -230,14 +230,14 @@ function CartPage(props) {
   );
 }
 
-// export default React.memo(CartPage)
-const mapStateToProps = (state)=>{
-  return {
-    cart:state.cartReducer
+export default React.memo(CartPage)
+// const mapStateToProps = (state)=>{
+//   return {
+//     cart:state.cartReducer
 
-  }
-}
+//   }
+// }
 
-export default connect(mapStateToProps,{})(CartPage)
+// export default connect(mapStateToProps,{})(CartPage)
 
 

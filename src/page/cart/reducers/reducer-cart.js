@@ -14,17 +14,17 @@ export const cartReducer = (state = initState, action) => {
     case types.START_ADD_CART:
       return {
         ...state,
-        statusAdd: state.status,
+        statusAdd: action.status,
       };
     case types.FINISH_ADD_CART:
       return {
         ...state,
-        finished: state.status,
+        finished: action.status,
       };
     case types.ADD_CART_FAILURE:
       return {
         ...state,
-        errorCart: state.err,
+        errorCart: action.err,
       };
     case types.ADD_CART_SUCCESS:
       const detailPd = action.data;
@@ -83,7 +83,6 @@ export const cartReducer = (state = initState, action) => {
       const itemAll = state.cartItems.map(item => item );
       //Xoa toan bo san pham trong gio hang
       const newDeleteCartAll = itemAll.filter((e) => {
-         
       });
       return {
         ...state,

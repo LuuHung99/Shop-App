@@ -18,6 +18,7 @@ function ProductShopApp(props) {
     <Row className="containers_products">
       {data.length > 0 ? (
         data
+          // eslint-disable-next-line array-callback-return
           .filter((val) => {
             if (searchProcuct === "") {
               return val;

@@ -9,6 +9,7 @@ function AppShop() {
   useEffect(() => {
     dispatch({ type: "GET_DATA_SHOP" });
   }, [dispatch]);
+  
   return (
     <>
       <PageComponent />
