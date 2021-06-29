@@ -16,7 +16,7 @@ function HeaderPage(props) {
     <>
       <Row className="container_header">
         <Col>
-          <NavLink to="/home">
+          <NavLink to="/">
             <img
               src="https://react-course-comfy-sloth-store.netlify.app/static/media/logo.221f6b13.svg"
               alt="logo"
@@ -28,7 +28,7 @@ function HeaderPage(props) {
         <Col span={8} className="header_menu">
           <ul>
             <li>
-              <NavLink to="/home" style={{ color: "#000" }}>
+              <NavLink to="/" style={{ color: "#000" }}>
                 Home
               </NavLink>
             </li>
@@ -60,7 +60,7 @@ function HeaderPage(props) {
           </div>
 
           <div style={{ cursor: "pointer", marginLeft: "5px" }}>
-            <NavLink to="/" style={{ color: "#000" }}>
+            <NavLink to="/login" style={{ color: "#000" }}>
               Login
             </NavLink>
             <UserAddOutlined />

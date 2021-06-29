@@ -51,7 +51,7 @@ function DetailProducts(props) {
     <LayoutPage>
       <div className="directional">
         <h1>
-          <Link to="/home" style={{ color: "#ab7a5f" }}>
+          <Link to="/" style={{ color: "#ab7a5f" }}>
             Home /
           </Link>
           <span>

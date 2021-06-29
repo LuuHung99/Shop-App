@@ -19,7 +19,7 @@ function PageComponents(props) {
   return (
     <Router>
         <Switch>
-          <Route exact path="/home">
+          <Route exact path="/">
             <Home />
           </Route>
           <Route path="/about">
@@ -34,7 +34,7 @@ function PageComponents(props) {
           <Route path="/cart">
             <Cart />
           </Route>
-          <Route exact path="/">
+          <Route exact path="/login">
             <Login />
           </Route>
           <Route path="/register">

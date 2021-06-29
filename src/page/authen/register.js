@@ -11,7 +11,7 @@ function RegisterPage(props) {
           <h2>Sign Up</h2>
         </div>
         <div className="change_login">
-          <Link to="/">Log in</Link>
+          <Link to="login">Log in</Link>
           <Link to="register">Sign up</Link>
         </div>
         <div
@@ -45,7 +45,7 @@ function RegisterPage(props) {
         <div style={{ margin: 25, fontWeight: 600 }}>
           <p>By signing up, you agree to our terms of service and privacy policy.</p>
         </div>
-        <div className="next_login"><Link to="/" style={{color: '#fff'}}>Sign Up</Link></div>
+        <div className="next_login"><Link to="/login" style={{color: '#fff'}}>Sign Up</Link></div>
       </div>
     </div>
   );

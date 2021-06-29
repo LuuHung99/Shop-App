@@ -11,7 +11,7 @@ function LoginPage(props) {
           <h2>Log In</h2>
         </div>
         <div className="change_login">
-          <Link to="">Log in</Link>
+          <Link to="login">Log in</Link>
           <Link to="register">Sign up</Link>
         </div>
         <div
@@ -44,7 +44,7 @@ function LoginPage(props) {
         <div style={{ margin: 25, fontWeight: 600 }}>
           <p>Don't remember your password?</p>
         </div>
-        <div className="next_login"><Link to="/home" style={{color: '#fff'}}>Log in</Link></div>
+        <div className="next_login"><Link to="/" style={{color: '#fff'}}>Log in</Link></div>
       </div>
     </div>
   );
