@@ -14,12 +14,6 @@ import Login from "./authen/login";
 import Register from "./authen/register";
 import DetailProducts from "./detailProducts/index";
 import CheckOut from "./checkout/index";
-// const Home = lazy(() => import("./home/index"));
-// const About = lazy(() => import("./about/index"));
-// const Products = lazy(() => import("./products/index"));
-// const Cart = lazy(() => import("./cart/index"));
-// const Login = lazy(() => import("./login/index"));
-
 
 function PageComponents(props) {
   return (

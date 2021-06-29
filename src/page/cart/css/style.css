@@ -69,7 +69,7 @@
 
 .cart_detail_price {
     display: grid;
-    grid-template-columns: 160px 1fr; 
+    grid-template-columns: 260px 1fr; 
     text-transform: capitalize;
 
 }

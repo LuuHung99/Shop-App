@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import "./css/style.css";
 import LayoutPage from "../../components/Layout";
 import Directional from "../../components/Directional";
-import { Row, Col, InputNumber, message } from "antd";
+import { Row, Col, InputNumber } from "antd";
 import { Link } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import * as reselect from "./reselect/reselect-cart";
 import { createStructuredSelector } from "reselect";
 import * as action from "./actions/index";
-import {connect}  from 'react-redux';
+// import {connect}  from 'react-redux';
 
 function CartPage(props) {
-  const [shipping, setShipping] = useState(5.34);
+  const [shipping] = useState(5.34);
   const dispatch = useDispatch();
  
   const { dataCart, totalMoney } = useSelector(

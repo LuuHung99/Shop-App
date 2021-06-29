@@ -82,8 +82,7 @@ export const cartReducer = (state = initState, action) => {
       //lay toan bo san pham trong gio hang
       const itemAll = state.cartItems.map(item => item );
       //Xoa toan bo san pham trong gio hang
-      const newDeleteCartAll = itemAll.filter((e) => {
-      });
+      const newDeleteCartAll = itemAll.filter(() => {});
       return {
         ...state,
         cartItems: newDeleteCartAll,

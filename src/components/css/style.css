@@ -8,7 +8,6 @@
   padding-top: 10px;
 }
  
-
 .container_header {
   display: flex;
   background-color: #fff;
@@ -99,6 +98,5 @@
   .header_menu ul, .deader_cart_login    {
     display: none;
   }
-  
   
 }

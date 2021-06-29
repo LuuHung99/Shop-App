@@ -16,14 +16,10 @@ function SidebarProduct(props) {
   const [color, setColor] = useState("#BF00FF");
   const [data, setData] = useState([]);
   const [showProduct, setShowProduct] = useState(false);
-  const [shipping, setShipping] = useState(true);
+  const [shipping, setShipping] = useState();
   const [longData, setLongData] = useState();
   const [sortBy, setSortBy] = useState("");
-  // const [clearFilter, setClearFilter] = useState();
-  const [sortPriceDecre, setSortPriceDecre] = useState();
-  const [sortPriceIncre, setSortPriceIncre] = useState([]);
-  const [sortNameDecre, setSortNameDecre] = useState();
-  const [sortNameIncre, setSortNameIncre] = useState();
+  const [clearFilter, setClearFilter] = useState();
 
   let cate = [
     { id: 0, category: "all" },
@@ -127,7 +123,7 @@ function SidebarProduct(props) {
                 (color !== "#BF00FF"
                   ? x.colors.map((item) => item) == color
                   : x) &&
-                (shipping !== true ? x.shipping === shipping : x)
+                (shipping === true ? x.shipping === shipping : x)
 
               //   (sortBy == "Price (Highest)"
               //     ? sortPrice.sort((a, b) => {
@@ -147,6 +143,7 @@ function SidebarProduct(props) {
           : dataShop;
       setData(result);
       setLongData(result);
+      
     }, 200);
     return () => clearTimeout(getData);
   }, [
@@ -158,7 +155,7 @@ function SidebarProduct(props) {
     inputValue,
     shipping,
     sortBy,
-    sortPriceIncre,
+    clearFilter
   ]);
 
   const onHandleChange = (val) => {
@@ -173,10 +170,6 @@ function SidebarProduct(props) {
     setShowProduct(true);
   };
 
-  const clearFilter = () => {
-     
-    // setData(data);
-  };
   return (
     <Layout style={{ backgroundColor: "#fff" }}>
       <div>
@@ -204,7 +197,6 @@ function SidebarProduct(props) {
                   </option>
                 ))}
               </select>
-
               {/* <Select defaultValue="Price (Lowest)" style={{ width: 120 }} onChange={() =>handleChange(data)}>
                 <Option value={sortPriceIncre} onClick={() => handleClickPriceLowest(data)}>
                   Price (Lowest)
@@ -274,18 +266,16 @@ function SidebarProduct(props) {
                 value={typeof inputValue === "number" ? inputValue : 0}
                 style={{ width: "70%", height: "10px" }}
               />
-
               <div style={{ display: "flex", marginTop: "30px" }}>
                 <p>Free Shipping</p>
                 <input
                   type="checkbox"
                   style={{ margin: "7px 10px" }}
-                  onChange={() => setShipping(true)}
+                  onChange={(val) => setShipping(val)}
                 />
               </div>
               <button
                 className="sidebar_clear"
-                onClick={clearFilter}
               >
                 Clear Filters
               </button>
