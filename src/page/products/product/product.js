@@ -57,7 +57,7 @@ function ProductShopApp(props) {
                   ) : (
                     <p style={{ textTransform: "capitalize" }}>{item.name}</p>
                   )}
-                  <span style={{ color: "#b99179" }}>
+                  <span style={{ color: "#b99179" }} className="product_info-price">
                   $ {(item.price.toFixed(2) / 100 ).toLocaleString()}
                   </span>
                   <p style={show ? {} : { display: "none" }}>

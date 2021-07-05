@@ -94,9 +94,30 @@
 /*Reponsive*/
 
 /*Header*/
+@media only screen and (max-width: 1024px) {
+  .header_menu ul li {
+    padding-left: 10px;
+    
+    
+  }
+  .header_menu ul {
+    margin-left: -100px;
+  }
+  
+}
+
 @media only screen and (max-width: 768px) {
   .header_menu ul, .deader_cart_login    {
     display: none;
   }
+  .container_header img {
+    width: 80%;
+  }
   
+}
+
+@media only screen and (max-width: 450px)  {
+  .container_header img {
+    width: 70%;
+  }
 }

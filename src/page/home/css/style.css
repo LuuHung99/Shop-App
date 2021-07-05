@@ -182,7 +182,7 @@
 .container_custom_history {
   display: flex;
   justify-content: space-between;
-  align-content: space-between;
+  flex-wrap: wrap;
   position: absolute;
   bottom: -80px;
   left: 0;
@@ -255,6 +255,10 @@
 /**Responsive*/
  
 @media only screen and (max-width: 768px) {
+  .layout-page {
+    margin: 0;
+    padding: 0;
+  }
   .container_introducton  {
     
  

@@ -192,7 +192,7 @@ function CartPage(props) {
               </Row>
 
               <Row className="cart_details">
-                <Col span={8} className="cart_detail">
+                <Col className="cart_detail">
                   <div className="cart_detail_price">
                     <h2>Subtotal </h2>
                     <h2>${(totalMoney.toFixed(2) / 100).toLocaleString()}</h2>
@@ -216,7 +216,7 @@ function CartPage(props) {
               </Row>
 
               <Row className="cart_detail_login">
-                <Col span={8}>
+                <Col >
                   <Link to="/login">
                     <button className="cart_login">login</button>
                   </Link>

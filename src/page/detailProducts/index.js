@@ -13,14 +13,12 @@ function DetailProducts(props) {
   const [image, setImage] = useState([]);
   const [count, setCount] = useState(1);
   const [imageFirst, setImageFirst] = useState();
-  // console.log("imageFirst", imageFirst);
   const dispatch = useDispatch();
   const finished = useSelector((state) => state.cartReducer.finished);
   
   const addCart = (id) => {
     dispatch(actions.getDataCart(id));
     if (finished) {
-      console.log("finished", finished);
       message.success("Add product to cart successfully", 2);
     }
   };
