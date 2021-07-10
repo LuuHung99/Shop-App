@@ -86,31 +86,6 @@ function SidebarProduct(props) {
     },
   ];
 
-  // useEffect(() => {
-  //   if (dataShop.length > 0) {
-  //     const newPrice = dataShop.map((item) => item.price);
-  //     const newName = dataShop.map((item) => item.name);
-
-  //     const newSortPriceIncre = newPrice.sort((a, b) => {
-  //       return a - b;
-  //     });
-
-  //     const newSortPriceDecre = newPrice.sort((a, b) => {
-  //       return b - a;
-  //     });
-
-  //     const newSortNameIncre = newName.sort((a, b) => a.localeCompare(b));
-
-  //     const newSortNameDecre = newName.sort((a, b) => b.localeCompare(a));
-
-  //     setSortPriceDecre(newSortPriceDecre);
-  //     setSortPriceIncre(newSortPriceIncre);
-  //     setSortNameDecre(newSortNameIncre);
-  //     setSortNameIncre(newSortNameDecre);
-  //   }
-  // }, [dataShop]);
- 
-
   useEffect(() => {
     const getData = setTimeout(() => {
       let result =
@@ -124,12 +99,12 @@ function SidebarProduct(props) {
                   ? x.colors.map((item) => item) == color
                   : x) &&
                 (shipping === true ? x.shipping === shipping : x)
-
-              //   (sortBy == "Price (Highest)"
-              //     ? sortPrice.sort((a, b) => {
-              //         return a - b;
-              //       }) == sortBy
-              //     : x)
+                &&
+                (sortBy == "Price (Highest)"
+                  ? x.sort((a, b) => {
+                      return a.price - b.price;
+                    }) == sortBy
+                  : x)
               // (sortBy == "Name (A-Z)"
               //   ? sortName.sort((a, b) => a.localeCompare(b)) !== sortBy
               //   : x) &&

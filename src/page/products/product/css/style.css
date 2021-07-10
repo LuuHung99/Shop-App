@@ -179,7 +179,7 @@
 @media only screen and (max-width: 525px) {
   .containers_products {
     margin: 0;
-    padding : 10px;
+    padding: 20px;
   }  
   .containers_products .product_row {
     flex-wrap: wrap;
